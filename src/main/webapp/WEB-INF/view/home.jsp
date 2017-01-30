@@ -25,43 +25,27 @@
 	<div class="container col-sm-12">
 		<form name="divisionalRoundForm" method="POST">
 			<!--<div class="table-bordered divisional-round" ng-repeat="team in nflCtrl.teams"  ng-if="$index % 2 == 0" class="row">-->
-			<div ng-repeat="team in nflCtrl.teams" class="row" ng-if="$even">
-				<div ng-if="team.division=='AFC'"><strong>AFC</strong></div>
-				<div ng-if="team.division=='NFC'"><strong>NFC</strong></div>
-
-					<!--<div ng-repeat="product in products" ng-if="$index % 3 == 0" class="row">
-					    <div class="col-xs-4">{{products[$index]}}</div>
-					    <div class="col-xs-4" ng-if="products.length > ($index + 1)">{{products[$index + 1]}}</div>
-					    <div class="col-xs-4" ng-if="products.length > ($index + 2)">{{products[$index + 2]}}</div>
-					</div>-->
-
-					<!--<div  ng-repeat="dummy in options">
-				    	<div class="row" ng-if="$even"
-				           <div class="col-xs-5">
-				                <input type="checkbox"  
-				               ng-model="options[$index   ].v">&nbsp;<span>{{options[$index  ].d}}</span>
-				            </div>
-				            <div class="col-xs-5">
-				                <input type="checkbox" 
-				                ng-model="options[$index +1].v">&nbsp;<span>{{options[$index+1].d}}</span>                   
-				            </div>
-				    	</div>
-				    </div>-->
-
-
+			<div ng-repeat="team in nflCtrl.teams">
+				<div class="row" ng-if="$even">
 					<div class="col-sm-5">
 						<img src={{nflCtrl.teams[$index].logo}}>
 						<strong>{{nflCtrl.teams[$index].location}}</strong>
 						<strong>{{nflCtrl.teams[$index].name}}</strong>
+						<strong>{{scoreHome}}</strong>
 					</div>
-					<div class="col-sm-5" ng-if="teams.length > ($index + 1)">
+					<div class="col-sm-1">
+						<strong>VS</strong>
+					</div>
+					<div class="col-sm-5" ng-if="nflCtrl.teams.length > ($index + 1)">
 						<img src={{nflCtrl.teams[$index+1].logo}}>
 						<strong>{{nflCtrl.teams[$index+1].location}}</strong>
 						<strong>{{nflCtrl.teams[$index+1].name}}</strong>
+						<strong>{{scoreAway}}</strong>
 					</div>
-
-
-				<input type="button" class="btn btn-xs btn-primary" ng-click="nflCtrl.play(team.tid)" value="Play"/>
+					<div class="col-sm-1">
+						<input type="button" class="btn btn-xs btn-primary" ng-click="nflCtrl.play(nflCtrl.teams[$index].average, nflCtrl.teams[$index+1].average)" value="Play"/>
+					</div>
+				</div>
 			</div>
 		</form>
 	</div>

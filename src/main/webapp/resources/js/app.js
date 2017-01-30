@@ -57,8 +57,12 @@ app.controller('NflController', ['$scope', 'Team', function($scope, Team) {
             ob.fetchAllTeams(); 
         });
     };
-    ob.play = function(argument) {
-        //Math.floor(Math.random() * ((y-x)+1) + x);
+    ob.play = function(average1, average2) {
+        console.log('Inside play');
+        $scope.scoreHome = Math.floor(Math.random() * ((average1-0)+1) + 0);
+        $scope.scoreAway = Math.floor(Math.random() * ((average2-0)+1) + 0);
+        console.log($scope.scoreHome);
+        console.log($scope.scoreAway);
     };
 
 }]);
