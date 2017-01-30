@@ -1,0 +1,49 @@
+package com.ilm.football.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.*;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.*;
+import org.springframework.security.config.annotation.web.configuration.*;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+
+/**
+ * Web security configuration.
+ * 
+ * @author	Naoko Huschle
+ * @since	2017-1-28
+ *
+ */
+
+@Configuration
+@EnableWebSecurity
+@Order(200)
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+		
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+            .inMemoryAuthentication()
+                .withUser("user").password("password").roles("USER");
+    }
+	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable();	
+		http
+			.formLogin().and().authorizeRequests()
+			.antMatchers(HttpMethod.GET, "/", "/teams")
+			.hasRole("USER")
+			.antMatchers(HttpMethod.POST, "/", "/teams")
+			.hasRole("USER")
+			.antMatchers(HttpMethod.PUT, "/", "/teams")
+			.hasRole("USER")
+			.antMatchers(HttpMethod.DELETE, "/", "/teams")
+			.hasRole("USER")
+			.anyRequest().permitAll();
+			//.and()
+			//.formLogin().loginPage("/login");
+	}
+		
+}

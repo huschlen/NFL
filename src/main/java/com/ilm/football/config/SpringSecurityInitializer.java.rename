@@ -1,0 +1,15 @@
+package com.ilm.football.config;
+
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
+
+/**
+ * Security initializer to load the SpringSecurityFilterChain.
+ * 
+ * @author	Naoko Huschle
+ * @since	2017-1-28
+ *
+ */
+
+public class SpringSecurityInitializer extends AbstractSecurityWebApplicationInitializer {
+
+}

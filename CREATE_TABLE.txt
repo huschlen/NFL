@@ -1,0 +1,23 @@
+CREATE DATABASE IF NOT EXISTS `nfl`;
+USE `nfl`;
+CREATE TABLE IF NOT EXISTS `team` (
+	`tid` int(2) NOT NULL,
+	`name` varchar(50) NOT NULL,
+	`location` varchar(50) NOT NULL,
+	`logo` varchar(100) NOT NULL,
+	`division` varchar(4) NOT NULL,
+	`average` int(2) NOT NULL,
+	`go` int(1) NOT NULL,
+	`home` varchar(4) NOT NULL,
+	PRIMARY KEY(`tid`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `team`(`tid`, `name`, `location`, `logo`, `division`, `average`, `go`, `home`) VALUES
+(1, "Patriots", "New England", "http://localhost:8080/nfl-1/app-resources/js/images/NewEnglandPatriots.png", "AFC", 29, 1, "home"),
+(2, "Chiefs", "Kansas City", "http://localhost:8080/nfl-1/app-resources/js/images/KansasCityChiefs.png", "AFC", 25, 1, "away"),
+(3, "Steelers", "Pittsburgh", "http://localhost:8080/nfl-1/app-resources/js/images/PittsburghSteelers.png", "AFC", 25, 1, "home"),
+(4, "Broncos", "Denver", "http://localhost:8080/nfl-1/app-resources/js/images/DenverBroncos.png", "AFC", 22, 1, "away"),
+(5, "Cardinals", "Arizona", "http://localhost:8080/nfl-1/app-resources/js/images/ArizonaCardinals.png", "NFC", 30, 1, "home"),
+(6, "Packers", "Green Bay", "http://localhost:8080/nfl-1/app-resources/js/images/GreenBayPackers.png", "NFC", 24, 1, "away"),
+(7, "Panthers", "Carolina", "http://localhost:8080/nfl-1/app-resources/js/images/CarolinaPanthers.png", "NFC", 31, 1, "home"),
+(8, "Seahawks", "Seattle", "http://localhost:8080/nfl-1/app-resources/js/images/SeattleSeahawks.png", "NFC", 25, 1, "away");
