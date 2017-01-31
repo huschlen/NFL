@@ -44,6 +44,7 @@ public class TeamDAOTest {
 		team.setLogo("http://localhost:8080/nfl-1/app-resources/js/images/MinnesotaVikings.png");
 		team.setDivision("NFC");
 		team.setAverage(3);
+		team.setScore(3);
 		team.setGo(1);
 		team.setHome("away");
 		hibernateTemplate.save(team);
@@ -62,6 +63,7 @@ public class TeamDAOTest {
 		team1.setLogo("http://localhost:8080/nfl-1/app-resources/js/images/MinnesotaVikings.png");
 		team1.setDivision("NFC");
 		team1.setAverage(3);
+		team1.setScore(3);
 		team1.setGo(1);
 		team1.setHome("away");
 		Team team2 = new Team();
@@ -71,6 +73,7 @@ public class TeamDAOTest {
 		team2.setLogo("http://localhost:8080/nfl-1/app-resources/js/images/MiamiDolphins.png");
 		team2.setDivision("AFC");
 		team2.setAverage(25);
+		team2.setScore(17);
 		team2.setGo(1);
 		team2.setHome("home");
 		teams.add(team1);
@@ -98,6 +101,7 @@ public class TeamDAOTest {
 		team.setLogo("http://localhost:8080/nfl-1/app-resources/js/images/MinnesotaVikings.png");
 		team.setDivision("NFC");
 		team.setAverage(3);
+		team.setScore(3);
 		team.setGo(1);
 		team.setHome("away");
 		teamDAO.addTeam(team);
@@ -114,6 +118,7 @@ public class TeamDAOTest {
 		team.setLogo("http://localhost:8080/nfl-1/app-resources/js/images/MinnesotaVikings.png");
 		team.setDivision("NFC");
 		team.setAverage(3);
+		team.setScore(3);
 		team.setGo(1);
 		team.setHome("away");
 		hibernateTemplate.save(team);
@@ -123,6 +128,7 @@ public class TeamDAOTest {
 		existingTeam.setLogo("http://localhost:8080/nfl-1/app-resources/js/images/MiamiDolphins.png");
 		existingTeam.setDivision("AFC");
 		existingTeam.setAverage(25);
+		existingTeam.setScore(17);
 		existingTeam.setGo(1);
 		existingTeam.setHome("home");
 		teamDAO.updateTeam(existingTeam);
@@ -138,6 +144,7 @@ public class TeamDAOTest {
 		team.setLogo("http://localhost:8080/nfl-1/app-resources/js/images/MinnesotaVikings.png");
 		team.setDivision("NFC");
 		team.setAverage(3);
+		team.setScore(3);
 		team.setGo(1);
 		team.setHome("away");
 		hibernateTemplate.save(team);
@@ -154,6 +161,7 @@ public class TeamDAOTest {
 		team.setLogo("http://localhost:8080/nfl-1/app-resources/js/images/MinnesotaVikings.png");
 		team.setDivision("NFC");
 		team.setAverage(3);
+		team.setScore(3);
 		team.setGo(1);
 		team.setHome("away");
 		hibernateTemplate.save(team);

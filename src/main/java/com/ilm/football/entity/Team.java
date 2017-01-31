@@ -35,6 +35,8 @@ public class Team implements Serializable{
 	private String division;	
 	@Column(name="average")
 	private int average;
+	@Column(name="score")
+	private int score;
 	@Column(name="go")
 	private int go;
 	@Column(name="home")
@@ -75,6 +77,12 @@ public class Team implements Serializable{
 	}
 	public void setAverage(int average) {
 		this.average = average;
+	}
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
 	}
 	public int getGo() {
 		return go;
