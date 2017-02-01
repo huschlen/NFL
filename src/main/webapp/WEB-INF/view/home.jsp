@@ -20,34 +20,81 @@
 		<a href="/angular-spring-1/logout">Logout</a>
 	</div>
 	-->
+	<div class="container">
+
+		<form name="gameTimeForm" method="POST">	
+		<!--Begin div class="update-form"-->
+		<div class="col-sm-12">
+		<div class="update-form" ng-show="play">		
+			<h3>Game Time!</h3>
+			<div class="row update-form-row">
+				<div class="col-sm-5">
+					<div class="input-group">
+						<img src={{nflCtrl.team1.logo}}>
+						<strong>{{nflCtrl.team1.location}}</strong>
+						<strong>{{nflCtrl.team1.name}}</strong>&nbsp;
+						<span><strong>{{nflCtrl.team1.score}}</strong></span>
+					</div>
+				</div>
+				<div class="col-sm-2">
+					<span><strong>VS</strong></span>
+				</div>
+				<div class="col-sm-5">
+					<div class="input-group">
+						<img src={{nflCtrl.team2.logo}}>
+						<strong>{{nflCtrl.team2.location}}</strong>
+						<strong>{{nflCtrl.team2.name}}</strong>&nbsp;
+						<span><strong>{{nflCtrl.team2.score}}</strong></span>
+					</div>
+				</div>		
+			</div> <!--End of div class="update-form-row"-->
+
+			<button
+				type="button"
+				id="gameTimeButton"
+				align="right"	
+				class="btn btn-primary update-button"
+				ng-click="nflCtrl.saveResult()"
+				ng-show="play">Game Time!
+			</button>
+		</div> <!--End of div class="update-form"-->
+		</div>
+		<!--<span ng-if="toyCtrl.flag=='created'" class="msg-success">Toy successfully added.</span>
+		<span ng-if="toyCtrl.flag=='updated'" class="msg-success">Toy successfully updated.</span>
+		<span ng-if="toyCtrl.flag=='deleted'" class="msg-success">Toy successfully deleted.</span>-->
+		</form>
+</div> <!--End of dev class="container"-->
 
 	<!--Divisional Round-->
-	<div class="container col-sm-12">
+	<div class="container">
+	<div class="col-sm-12">
+		<h3>Divisional Round</h3>
 		<form name="divisionalRoundForm" method="POST">
 			<!--<div class="table-bordered divisional-round" ng-repeat="team in nflCtrl.teams"  ng-if="$index % 2 == 0" class="row">-->
 			<div ng-repeat="team in nflCtrl.teams">
-				<div class="row" ng-if="$even">
+				<div class="row" class="col-sm-12" ng-if="$even">
 					<div class="col-sm-5">
 						<img src={{nflCtrl.teams[$index].logo}}>
 						<strong>{{nflCtrl.teams[$index].location}}</strong>
-						<strong>{{nflCtrl.teams[$index].name}}</strong>
-						<strong>{{scoreHome}}</strong>
+						<strong>{{nflCtrl.teams[$index].name}}</strong>&nbsp;
+						<strong>{{nflCtrl.teams[$index].score}}</strong>
 					</div>
-					<div class="col-sm-1">
+					<div class="col-sm-2">
 						<strong>VS</strong>
 					</div>
 					<div class="col-sm-5" ng-if="nflCtrl.teams.length > ($index + 1)">
 						<img src={{nflCtrl.teams[$index+1].logo}}>
 						<strong>{{nflCtrl.teams[$index+1].location}}</strong>
-						<strong>{{nflCtrl.teams[$index+1].name}}</strong>
-						<strong>{{scoreAway}}</strong>
+						<strong>{{nflCtrl.teams[$index+1].name}}</strong>&nbsp;
+						<strong>{{nflCtrl.teams[$index+1].score}}</strong>
 					</div>
-					<div class="col-sm-1">
-						<input type="button" class="btn btn-xs btn-primary" ng-click="nflCtrl.play(nflCtrl.teams[$index].average, nflCtrl.teams[$index+1].average)" value="Play"/>
+					<div class="col-sm-2">
+						<input type="button" class="btn btn-xs btn-primary" align="right" ng-click="nflCtrl.gameTime(nflCtrl.teams[$index].tid, nflCtrl.teams[$index+1].tid)" value="Play"/>
 					</div>
 				</div>
 			</div>
 		</form>
+	</div>
 	</div>
 
 <!--Conference Championship-->

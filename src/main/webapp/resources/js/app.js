@@ -1,4 +1,4 @@
-var app = angular.module('nfl',['ui.bootstrap','ngResource']);
+var app = angular.module('nfl', ['ui.bootstrap','ngResource']);
 
 app.factory('Team', ['$resource', function ($resource) {
 	return $resource('http://localhost:8080/nfl-1/teams/:teamId', {teamId: '@tid'},
@@ -8,7 +8,7 @@ app.factory('Team', ['$resource', function ($resource) {
     );
 }]);
 
-app.controller('NflController', ['$scope', 'Team', function($scope, Team) {
+app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $window, Team) {
     var newEnglandPatriotsAverage = 29;
     var kansasCityChiefsAverage = 25;
     var pittsburghSteelersAverage = 25;
@@ -19,15 +19,16 @@ app.controller('NflController', ['$scope', 'Team', function($scope, Team) {
     var seattleSeahawksAverage = 25;
     var ob = this;
     ob.teams=[];
-    ob.team = new Team();
+    ob.team1 = new Team();
+    ob.team2 = new Team();
     ob.fetchAllTeams = function(){       
         ob.teams = Team.query();   
     };
     ob.fetchAllTeams();
     ob.addTeam = function(){
         console.log('Inside save');
-        ob.team.$save(function(team) {
-        console.log(team);
+        ob.team1.$save(function(team) {
+        console.log(team1);
         ob.reset(); 
         ob.fetchAllTeams();
         },
@@ -36,33 +37,49 @@ app.controller('NflController', ['$scope', 'Team', function($scope, Team) {
             ob.flag='failed';
         });
     }; 
-    ob.updateGo = function(id) {
-        console.log('Inside updateGo');
-        ob.team = Team.get({ teamId:id }, function() {
-            ob.flag = 'edit';
-        });
-        ob.team.$updateTeam(function(team) {
-        console.log(team); 
-        ob.updatedId = team.tid;
-        ob.reset();
-        ob.flag = 'updated';
-        ob.fetchAllTeams();
-       });
-    };     
+   
     ob.deleteTeam = function(id){
         console.log('Inside delete');
-        ob.team = Team.delete({ teamId:id }, function() {
+        ob.team1 = Team.delete({ teamId:id }, function() {
             ob.reset();  
             ob.flag = 'deleted';
             ob.fetchAllTeams(); 
         });
     };
-    ob.play = function(average1, average2) {
+
+    ob.gameTime = function(id1, id2) {
+        $scope.play = true;
+        $window.scrollTo(0, 0);
         console.log('Inside play');
-        $scope.scoreHome = Math.floor(Math.random() * ((average1-0)+1) + 0);
-        $scope.scoreAway = Math.floor(Math.random() * ((average2-0)+1) + 0);
-        console.log($scope.scoreHome);
-        console.log($scope.scoreAway);
+        ob.team1 = Team.get({ teamId:id1 }, function() {
+        });
+        ob.team2 = Team.get({ teamId:id2 }, function() {
+        });
+    };
+
+    ob.saveResult = function() {
+        console.log("inside saveResult")
+        ob.team1.score = Math.floor(Math.random() * ((ob.team1.average-0)+1) + 0);
+        ob.team2.score = Math.floor(Math.random() * ((ob.team2.average-0)+1) + 0);
+        console.log(ob.team1);
+        console.log(ob.team2);
+        if(ob.team1.score != ob.team2.score) {
+            ob.team1.$updateTeam(function(team1) {
+            console.log(team1);
+            ob.fetchAllTeams();
+            });
+            ob.team2.$updateTeam(function(team2) {
+            console.log(team2);
+            ob.fetchAllTeams();
+            });
+            if(ob.team1.score < ob.team2.score) {
+                ob.team1.go = 0;
+                ob.team1.$updateTeam(function(team1) {
+                });
+            }
+            $scope.play = false;
+            ob.fetchAllTeams();
+        }
     };
 
 }]);
