@@ -42,15 +42,11 @@ public class TeamDAO implements ITeamDAO {
 		t.setLogo(team.getLogo());
 		t.setDivision(team.getDivision());
 		t.setAverage(team.getAverage());
+		t.setScore(team.getScore());
 		t.setGo(team.getGo());
 		t.setTid(team.getTid());
-		t.setGo(0);
+		t.setHome(team.getHome());
 		hibernateTemplate.update(t);
-	}
-	@Override
-	public void reset() {
-		String hql = "UPDATE Team set go = 1";
-		hibernateTemplate.bulkUpdate(hql);
 	}
 	@Override
 	public void deleteTeam(int tid) {

@@ -46,10 +46,6 @@ public class TeamService implements ITeamService {
 		teamDAO.updateTeam(team);
 	}
 	@Override
-	public void reset() {
-		teamDAO.reset();
-	}
-	@Override
 	public void deleteTeam(int tid) {
 		teamDAO.deleteTeam(tid);
 	}
