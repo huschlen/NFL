@@ -9,18 +9,13 @@ app.factory('Team', ['$resource', function ($resource) {
 }]);
 
 app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $window, Team) {
-    var newEnglandPatriotsAverage = 29;
-    var kansasCityChiefsAverage = 25;
-    var pittsburghSteelersAverage = 25;
-    var denverBroncosAverage = 22;
-    var arizonaCardinalsAverage = 30;
-    var greenBayPackersAverage = 24;
-    var carolinaPanthersAverage = 31;
-    var seattleSeahawksAverage = 25;
     var ob = this;
     ob.teams=[];
     ob.team1 = new Team();
     ob.team2 = new Team();
+    $scope.gameTimeButton = "Game Time";
+    $scope.team1Won = false;
+    $scope.team2Won = false;
     ob.fetchAllTeams = function(){       
         ob.teams = Team.query();   
     };
@@ -49,6 +44,8 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
 
     ob.gameTime = function(id1, id2) {
         $scope.play = true;
+        $scope.gameOver = false;
+        $scope.round1 = true;
         $window.scrollTo(0, 0);
         console.log('Inside play');
         ob.team1 = Team.get({ teamId:id1 }, function() {
@@ -59,11 +56,9 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
 
     ob.saveResult = function() {
         console.log("inside saveResult")
-        ob.team1.score = Math.floor(Math.random() * ((ob.team1.average-0)+1) + 0);
-        ob.team2.score = Math.floor(Math.random() * ((ob.team2.average-0)+1) + 0);
-        console.log(ob.team1);
-        console.log(ob.team2);
-        if(ob.team1.score != ob.team2.score) {
+        ob.team1.round1Score = Math.floor(Math.random() * ((ob.team1.average-0)+1) + 0);
+        ob.team2.round1Score = Math.floor(Math.random() * ((ob.team2.average-0)+1) + 0);
+        if(ob.team1.round1Score != ob.team2.round1Score) {
             ob.team1.$updateTeam(function(team1) {
             console.log(team1);
             ob.fetchAllTeams();
@@ -72,12 +67,22 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
             console.log(team2);
             ob.fetchAllTeams();
             });
-            if(ob.team1.score < ob.team2.score) {
+            if(ob.team1.round1Score < ob.team2.round1Score) {
                 ob.team1.go = 0;
+                $scope.team1Won = false;
+                $scope.team2Won = true;
                 ob.team1.$updateTeam(function(team1) {
                 });
             }
             $scope.play = false;
+            $scope.gameOver = true;
+            $scope.tieBreakerGame = false;
+            $scope.gameTimeButton = "Game Time";
+            ob.fetchAllTeams();
+        }
+        else {
+            $scope.gameTimeButton = "Tie Breaker";
+            $scope.tieBreakerGame = true;
             ob.fetchAllTeams();
         }
     };
