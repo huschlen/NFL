@@ -35,8 +35,12 @@ public class Team implements Serializable{
 	private String division;	
 	@Column(name="average")
 	private int average;
-	@Column(name="score")
-	private int score;
+	@Column(name="round1Score")
+	private int round1Score;
+	@Column(name="round2Score")
+	private int round2Score;
+	@Column(name="round3Score")
+	private int round3Score;
 	@Column(name="go")
 	private int go;
 	@Column(name="home")
@@ -78,11 +82,23 @@ public class Team implements Serializable{
 	public void setAverage(int average) {
 		this.average = average;
 	}
-	public int getScore() {
-		return score;
+	public int getRound1Score() {
+		return round1Score;
 	}
-	public void setScore(int score) {
-		this.score = score;
+	public void setRound1Score(int round1Score) {
+		this.round1Score = round1Score;
+	}
+	public int getRound2Score() {
+		return round2Score;
+	}
+	public void setRound2Score(int round2Score) {
+		this.round2Score = round2Score;
+	}
+	public int getRound3Score() {
+		return round3Score;
+	}
+	public void setRound3Score(int round3Score) {
+		this.round3Score = round3Score;
 	}
 	public int getGo() {
 		return go;
@@ -93,7 +109,6 @@ public class Team implements Serializable{
 	public String getHome() {
 		return home;
 	}
-	
 	public void setHome(String home) {
 		this.home = home;
 	}

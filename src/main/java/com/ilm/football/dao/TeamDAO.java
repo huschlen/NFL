@@ -42,7 +42,9 @@ public class TeamDAO implements ITeamDAO {
 		t.setLogo(team.getLogo());
 		t.setDivision(team.getDivision());
 		t.setAverage(team.getAverage());
-		t.setScore(team.getScore());
+		t.setRound1Score(team.getRound1Score());
+		t.setRound2Score(team.getRound2Score());
+		t.setRound3Score(team.getRound3Score());
 		t.setGo(team.getGo());
 		t.setTid(team.getTid());
 		t.setHome(team.getHome());
