@@ -48,6 +48,7 @@ public class TeamDAO implements ITeamDAO {
 		t.setGo(team.getGo());
 		t.setTid(team.getTid());
 		t.setHome(team.getHome());
+		t.setRoundPlayed(team.getRoundPlayed());
 		hibernateTemplate.update(t);
 	}
 	@Override

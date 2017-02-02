@@ -49,6 +49,7 @@ public class TeamDAOTest {
 		team.setRound3Score(0);
 		team.setGo(0);
 		team.setHome("away");
+		team.setRoundPlayed(0);
 		hibernateTemplate.save(team);
 		Team teamRetrieved = teamDAO.getTeamById(100);
 		assertEquals(team, teamRetrieved);
@@ -70,6 +71,7 @@ public class TeamDAOTest {
 		team1.setRound3Score(0);
 		team1.setGo(0);
 		team1.setHome("away");
+		team1.setRoundPlayed(0);
 		Team team2 = new Team();
 		team2.setTid(102);
 		team2.setName("Dolphins");
@@ -82,6 +84,7 @@ public class TeamDAOTest {
 		team2.setRound3Score(0);
 		team2.setGo(0);
 		team2.setHome("home");
+		team2.setRoundPlayed(0);
 		teams.add(team1);
 		teams.add(team2);
 		hibernateTemplate.save(team1);
@@ -112,6 +115,7 @@ public class TeamDAOTest {
 		team.setRound3Score(0);
 		team.setGo(0);
 		team.setHome("away");
+		team.setRoundPlayed(0);
 		teamDAO.addTeam(team);
 		Team teamAdded = hibernateTemplate.get(Team.class, 100);
 		assertEquals(team.getName(), teamAdded.getName());
@@ -131,6 +135,7 @@ public class TeamDAOTest {
 		team.setRound3Score(0);
 		team.setGo(0);
 		team.setHome("away");
+		team.setRoundPlayed(0);
 		hibernateTemplate.save(team);
 		Team existingTeam = hibernateTemplate.get(Team.class, 101);
 		existingTeam.setName("Dolphin");
@@ -143,6 +148,7 @@ public class TeamDAOTest {
 		existingTeam.setRound3Score(0);
 		existingTeam.setGo(0);
 		existingTeam.setHome("home");
+		existingTeam.setRoundPlayed(0);
 		teamDAO.updateTeam(existingTeam);
 		Team updatedTeam = hibernateTemplate.get(Team.class, 101);
 		assertEquals("Dolphin", updatedTeam.getName());
@@ -161,6 +167,7 @@ public class TeamDAOTest {
 		team.setRound3Score(0);
 		team.setGo(0);
 		team.setHome("away");
+		team.setRoundPlayed(0);
 		hibernateTemplate.save(team);
 		teamDAO.deleteTeam(101);
 		Team deletedTeam = hibernateTemplate.get(Team.class, 101);
@@ -180,6 +187,7 @@ public class TeamDAOTest {
 		team.setRound3Score(0);
 		team.setGo(0);
 		team.setHome("away");
+		team.setRoundPlayed(0);
 		hibernateTemplate.save(team);
 		boolean teamExists = teamDAO.teamExists(team.getName(), team.getTid());
 		assertTrue(teamExists);

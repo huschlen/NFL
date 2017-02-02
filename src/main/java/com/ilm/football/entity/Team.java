@@ -45,6 +45,8 @@ public class Team implements Serializable{
 	private int go;
 	@Column(name="home")
 	private String home;
+	@Column(name="roundPlayed")
+	private int roundPlayed;
 	
 	public int getTid() {
 		return tid;
@@ -111,6 +113,12 @@ public class Team implements Serializable{
 	}
 	public void setHome(String home) {
 		this.home = home;
+	}
+	public int getRoundPlayed() {
+		return roundPlayed;
+	}
+	public void setRoundPlayed(int roundPlayed) {
+		this.roundPlayed = roundPlayed;
 	}
 	@Override
 	public boolean equals(Object o) {
