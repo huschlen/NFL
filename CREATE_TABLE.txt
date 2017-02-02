@@ -12,15 +12,16 @@ CREATE TABLE IF NOT EXISTS `team` (
 	`round3Score` int(2) NOT NULL,
 	`go` int(2) NOT NULL,
 	`home` varchar(4) NOT NULL,
+	`roundPlayed` int(1) NOT NULL,
 	PRIMARY KEY(`tid`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `team`(`tid`, `name`, `location`, `logo`, `division`, `average`, `round1Score`, `round2Score`, `round3Score`, `go`, `home`) VALUES
-(1, "Patriots", "New England", "http://localhost:8080/nfl-1/app-resources/js/images/NewEnglandPatriots.png", "AFC", 29, 0, 0, 0, 1, "home"),
-(2, "Chiefs", "Kansas City", "http://localhost:8080/nfl-1/app-resources/js/images/KansasCityChiefs.png", "AFC", 25, 0, 0, 0, 1, "away"),
-(3, "Steelers", "Pittsburgh", "http://localhost:8080/nfl-1/app-resources/js/images/PittsburghSteelers.png", "AFC", 25, 0, 0, 0, 1, "home"),
-(4, "Broncos", "Denver", "http://localhost:8080/nfl-1/app-resources/js/images/DenverBroncos.png", "AFC", 22, 0, 0, 0, 1, "away"),
-(5, "Cardinals", "Arizona", "http://localhost:8080/nfl-1/app-resources/js/images/ArizonaCardinals.png", "NFC", 30, 0, 0, 0, 1, "home"),
-(6, "Packers", "Green Bay", "http://localhost:8080/nfl-1/app-resources/js/images/GreenBayPackers.png", "NFC", 24, 0, 0, 0, 1, "away"),
-(7, "Panthers", "Carolina", "http://localhost:8080/nfl-1/app-resources/js/images/CarolinaPanthers.png", "NFC", 31, 0, 0, 0, 1, "home"),
-(8, "Seahawks", "Seattle", "http://localhost:8080/nfl-1/app-resources/js/images/SeattleSeahawks.png", "NFC", 25, 0, 0, 0, 1, "away");
+INSERT INTO `team`(`tid`, `name`, `location`, `logo`, `division`, `average`, `round1Score`, `round2Score`, `round3Score`, `go`, `home`, `roundPlayed`) VALUES
+(1, "Patriots", "New England", "http://localhost:8080/nfl-1/app-resources/js/images/NewEnglandPatriots.png", "AFC", 29, 0, 0, 0, 1, "home", 0),
+(2, "Chiefs", "Kansas City", "http://localhost:8080/nfl-1/app-resources/js/images/KansasCityChiefs.png", "AFC", 25, 0, 0, 0, 1, "away", 0),
+(3, "Steelers", "Pittsburgh", "http://localhost:8080/nfl-1/app-resources/js/images/PittsburghSteelers.png", "AFC", 25, 0, 0, 0, 1, "home", 0),
+(4, "Broncos", "Denver", "http://localhost:8080/nfl-1/app-resources/js/images/DenverBroncos.png", "AFC", 22, 0, 0, 0, 1, "away", 0),
+(5, "Cardinals", "Arizona", "http://localhost:8080/nfl-1/app-resources/js/images/ArizonaCardinals.png", "NFC", 30, 0, 0, 0, 1, "home", 0),
+(6, "Packers", "Green Bay", "http://localhost:8080/nfl-1/app-resources/js/images/GreenBayPackers.png", "NFC", 24, 0, 0, 0, 1, "away", 0),
+(7, "Panthers", "Carolina", "http://localhost:8080/nfl-1/app-resources/js/images/CarolinaPanthers.png", "NFC", 31, 0, 0, 0, 1, "home", 0),
+(8, "Seahawks", "Seattle", "http://localhost:8080/nfl-1/app-resources/js/images/SeattleSeahawks.png", "NFC", 25, 0, 0, 0, 1, "away", 0);
