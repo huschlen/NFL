@@ -12,16 +12,11 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
     var ob = this;
     var round1Counter = 0;
     var round2Counter = 0;
-    ob.teams=[];
+    ob.teams = [];
+    ob.myTeam = new Team();
     ob.team1 = new Team();
     ob.team2 = new Team();
     $scope.gameOver = false;
-    $scope.round1 = false;
-    $scope.round2 = false;
-    $scope.round3 = false;
-    $scope.round1Done = false;
-    $scope.round2Done = false;
-    $scope.round3Done = false;
     $scope.gameTimeButton = "Game Time";
     $scope.team1Won = false;
     $scope.team2Won = false;
@@ -31,7 +26,7 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
     ob.fetchAllTeams();
     ob.addTeam = function(){
         console.log('Inside save');
-        ob.team1.$save(function(team) {
+        ob.team1.$save(function(team1) {
         console.log(team1);
         ob.reset(); 
         ob.fetchAllTeams();
@@ -44,41 +39,47 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
    
     ob.deleteTeam = function(id){
         console.log('Inside delete');
-        ob.team1 = Team.delete({ teamId:id }, function() { 
+        ob.team1 = Team.delete({ teamId:id }, function() {
+            ob.reset();
             ob.flag = 'deleted';
             ob.fetchAllTeams(); 
         });
     };
 
-    ob.gameTime = function(id1, id2, round) {
+    ob.gameTime = function(id1, id2, round, buttonId) {
+        $scope.team1Won = false;
+        $scope.team2Won = false;
         $scope.play = true;
+        $scope.gameOver = false;
         $window.scrollTo(0, 0);
-        console.log('Inside play');
+        var numOfGames = 0;
+        $window.document.getElementById(buttonId).disabled = true;
+
+        ob.myTeam = Team.get({ teamId:id1 }, function() {
+        });
         ob.team1 = Team.get({ teamId:id1 }, function() {
         });
         ob.team2 = Team.get({ teamId:id2 }, function() {
         });
+        
+        console.log("inside gameTime ob.team1.name "  + ob.team1.name);
+        console.log("inside gameTime ob.team1.name"  + ob.myTeam.name);
         if(round == 1) {
             ob.team1.roundPlayed = 1;
             ob.team2.roundPlayed = 1;
-            $scope.round1 = true;
         }
         else if(round == 2) {
             ob.team1.roundPlayed = 2;
             ob.team2.roundPlayed = 2;
-            $scope.round2 = true;
         }
         else {
             ob.team1.roundPlayed = 3;
             ob.team2.roundPlayed = 3;
-            $scope.round3 = true;
         }
-        console.log("ob.team1.roundPlayed " + ob.team1.roundPlayed);
-        console.log("ob.team2.roundPlayed " + ob.team2.roundPlayed);
-        console.log("---------------");
     };
 
     ob.saveResult = function() {
+        $window.document.getElementById(0).disabled = true;
         console.log("inside saveResult")
         ob.team1.round1Score = Math.floor(Math.random() * ((ob.team1.average-0)+1) + 0);
         ob.team2.round1Score = Math.floor(Math.random() * ((ob.team2.average-0)+1) + 0);
@@ -98,6 +99,7 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
                 $scope.team1Won = false;
                 $scope.team2Won = true;
                 ob.team1.$updateTeam(function(team1) {
+                    //ob.fetchAllTeams();
                 });
             }
             else {
@@ -115,25 +117,35 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
             $scope.tieBreakerGame = true;
             ob.fetchAllTeams();
         }
-        console.log("ob.team1.roundPlayed " + ob.team1.roundPlayed);
-        console.log("ob.team2.roundPlayed " + ob.team2.roundPlayed);
+        var myTeamId = 1;
+        ob.myTeam = Team.get({ teamId:myTeamId }, function() {
+        });
+        console.log("***ob.myTeam.name "+ob.myTeam.name);
+        console.log("***ob.team1.name "+ob.team1.name);
+        ob.myTeam.round1Score = 0;
+        ob.myTeam.round2Score = 0;
+        ob.myTeam.round3Score = 0;
+        ob.myTeam.go = 1;
+        ob.myTeam.roundPlayed = 0;
+        ob.myTeam.$updateTeam(function(myTeam) { 
+        });
     };
 
     ob.startOver = function() {
-        this.round1Counter = 0;
-        this.round2Counter = 0;
-        this.round3Counter = 0;
-        var team = new Team();
-        $scope.round1Done = false;
-        $scope.round2Done = false;
-        $scope.round3Done = false;
-        team.round1Score = 0;
-        team.round2Score = 0;
-        team.round3Score = 0;
-        team.go = 1;
-        team.$updateTeam(function(team) {
+        ob.fetchAllTeams();
+        var myId = 1;
+        ob.myTeam = Team.get({ teamId:myId }, function() {
+            });
+            ob.myTeam.round1Score = 0;
+            ob.myTeam.round2Score = 0;
+            ob.myTeam.round3Score = 0;
+            ob.myTeam.go = 1;
+            ob.myTeam.roundPlayed = 0;
+            ob.myTeam.$updateTeam(function(myTeam) {
+            
             ob.fetchAllTeams();
-        });
+            });
+
     };
 
 }]);

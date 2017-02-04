@@ -33,7 +33,6 @@
 							<img src="${pageContext.request.contextPath}/app-resources/js/images/star.jpg" ng-show="team1Won">&nbsp;
 							<strong>{{nflCtrl.team1.location}}</strong>&nbsp;
 							<strong>{{nflCtrl.team1.name}}</strong>&nbsp;
-							<strong "team2Won">{{nflCtrl.team1.name}}</strong>&nbsp;
 							<span><strong>{{nflCtrl.team1.round1Score}}</strong></span>
 							<span ng-show=""><strong>{{nflCtrl.team1.round2Score}}</strong>
 							<span ng-show=""><strong>{{nflCtrl.team1.round3Score}}</strong>
@@ -48,7 +47,6 @@
 							<img src="${pageContext.request.contextPath}/app-resources/js/images/star.jpg" ng-show="team2Won">&nbsp;
 							<strong>{{nflCtrl.team2.location}}</strong>&nbsp;
 							<strong>{{nflCtrl.team2.name}}</strong>&nbsp;
-							<strong "team2Won">{{nflCtrl.team2.name}}</strong>&nbsp;
 							<strong>{{nflCtrl.team2.round1Score}}</strong>
 							<span ng-show=""><strong>{{nflCtrl.team2.round2Score}}</strong></span>
 							<span ng-show=""><strong>{{nflCtrl.team2.round3Score}}</strong></span>
@@ -63,6 +61,7 @@
 					ng-click="nflCtrl.saveResult()"
 					ng-show="play && !gameOver">{{gameTimeButton}}
 				</button>
+
 				<button
 					type="button"
 					class="btn btn-danger"
@@ -79,7 +78,7 @@
 		<div class="col-sm-12">
 			<h3>Divisional Round</h3>
 			<form name="divisionalRoundForm" method="POST">
-				<div class="table-bordered team-list" ng-repeat="team in nflCtrl.teams | round1Filter:team">
+				<div class="table-bordered team-list" ng-repeat="team in nflCtrl.teams">
 					<span ng-if="team.division=='AFC'" ng-show="$even">AFC</span>
 					<span ng-if="team.division=='NFC'" ng-show="$even">NFC</span>
 					<div class="row" class="col-sm-12" ng-if="$even">
@@ -99,7 +98,7 @@
 							<strong>{{nflCtrl.teams[$index+1].round1Score}}</strong>
 						</div>
 						<div class="col-sm-2" id="divPlayButton">
-							<input type="button" class="btn btn-xs btn-primary" id="playButton" ng-click="nflCtrl.gameTime(nflCtrl.teams[$index].tid, nflCtrl.teams[$index+1].tid, 1)" value="Play"/>
+							<input type="button" class="btn btn-xs btn-primary" id="{{$index}}" ng-click="nflCtrl.gameTime(nflCtrl.teams[$index].tid, nflCtrl.teams[$index+1].tid, 1, $index)" value="Play"/>
 						</div>
 					</div>
 					
@@ -170,8 +169,15 @@
 			</form>
 		</div><!--end of <div class="col-sm-12">-->
 	</div>
+	
 	<div class="container">
-		<input type="button" class="btn btn-md btn-primary" id="startOver" ng-click="nflCtrl.startOver()" value="Start Over"/>
+		<form name="startOver" method="POST">
+		<button type="button"
+				class="btn btn-md btn-primary"
+				id="startOver"
+				ng-click="nflCtrl.startOver()">Start Over
+		</button>
+		</form>
 	</div>
 	
 </body>
@@ -180,6 +186,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-resource.js"></script>
 <script src="${pageContext.request.contextPath}/app-resources/js/nflApp.js"></script>
 <script src="${pageContext.request.contextPath}/app-resources/js/filters/round1Filter.js"></script>
-<script src="${pageContext.request.contextPath}/app-resources/js/filters/round2Filter.js"></script>
-<script src="${pageContext.request.contextPath}/app-resources/js/filters/round3Filter.js"></script>
+<script src="${pageContext.request.contextPath}/app-resources/js/filters/indexFilter.js"></script>
+<!--<script src="${pageContext.request.contextPath}/app-resources/js/filters/round2Filter.js"></script>
+<script src="${pageContext.request.contextPath}/app-resources/js/filters/round3Filter.js"></script>-->
 </html>
