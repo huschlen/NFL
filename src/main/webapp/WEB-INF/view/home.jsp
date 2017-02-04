@@ -59,13 +59,14 @@
 					id="gameTimeButton"
 					class="btn btn-primary"
 					ng-click="nflCtrl.saveResult()"
-					ng-show="play && !gameOver">{{gameTimeButton}}
+					ng-show="play && !gameOver && !round1Done">{{gameTimeButton}}
 				</button>
 
 				<button
 					type="button"
-					class="btn btn-danger"
-					ng-show="play && gameOver">Game Over
+					class="btn btn-primary"
+					ng-show="round1Done">Go to Conference Championship!	
+					<!--ng-click="nflCtrl.resetPlayed"-->
 				</button>
 			</div><!--end of <div class="game-time-form" ng-show="play">-->
 		</div>
@@ -98,7 +99,7 @@
 							<strong>{{nflCtrl.teams[$index+1].round1Score}}</strong>
 						</div>
 						<div class="col-sm-2" id="divPlayButton">
-							<input type="button" class="btn btn-xs btn-primary" id="{{$index}}" ng-click="nflCtrl.gameTime(nflCtrl.teams[$index].tid, nflCtrl.teams[$index+1].tid, 1, $index)" value="Play"/>
+							<input type="button" class="btn btn-xs btn-primary" id="{{'round1'+$index}}" ng-click="nflCtrl.play(nflCtrl.teams[$index].tid, nflCtrl.teams[$index+1].tid, 1, 'round1'+$index)" value="Play"/>
 						</div>
 					</div>
 					
@@ -111,7 +112,7 @@
 	<div class="container">
 		<div class="col-sm-12">
 			<h3>Conference Championship</h3>
-			<form name="divisionalRoundForm" method="POST">
+			<form name="conferenceChampionshipForm" method="POST">
 				<div class="table-bordered team-list" ng-repeat="team in nflCtrl.teams">
 					<div class="row" class="col-sm-12" ng-if="$even">
 						<div class="col-sm-5">
@@ -130,7 +131,7 @@
 							<strong>{{nflCtrl.teams[$index+1].round2Score}}</strong>
 						</div>
 						<div class="col-sm-2" id="divPlayButton">
-							<input type="button" class="btn btn-xs btn-primary" id="playButton" ng-click="nflCtrl.gameTime(nflCtrl.teams[$index].tid, nflCtrl.teams[$index+1].tid, 2)" value="Play"/>
+							<input type="button" class="btn btn-xs btn-primary" id="playButton" ng-click="nflCtrl.play(nflCtrl.teams[$index].tid, nflCtrl.teams[$index+1].tid, 2)" value="Play"/>
 						</div>
 					</div>
 
@@ -143,7 +144,7 @@
 	<div class="container">
 		<div class="col-sm-12">
 			<h3>Super Bowl</h3>
-			<form name="divisionalRoundForm" method="POST">
+			<form name="superBowlForm" method="POST">
 				<div class="table-bordered team-list" ng-repeat="team in nflCtrl.teams">
 					<div class="row" class="col-sm-12" ng-if="$even">
 						<div class="col-sm-5">
@@ -162,7 +163,7 @@
 							<strong>{{nflCtrl.teams[$index+1].round3Score}}</strong>
 						</div>
 						<div class="col-sm-2" id="divPlayButton">
-							<input type="button" class="btn btn-xs btn-primary" id="playButton" ng-click="nflCtrl.gameTime(nflCtrl.teams[$index].tid, nflCtrl.teams[$index+1].tid, 3)" value="Play"/>
+							<input type="button" class="btn btn-xs btn-primary" id="playButton" ng-click="nflCtrl.play(nflCtrl.teams[$index].tid, nflCtrl.teams[$index+1].tid, 3)" value="Play"/>
 						</div>
 					</div>
 				</div><!--end of <div class="table-bordered", ng-repeat="team in nflCtrl.teams">-->
