@@ -1,4 +1,4 @@
-var app = angular.module('nfl', ['ui.bootstrap','ngResource']);
+var app = angular.module('nfl', ['ui.bootstrap', 'ngResource']);
 
 app.factory('Team', ['$resource', function ($resource) {
 	return $resource('http://localhost:8080/nfl-1/teams/:teamId', {teamId: '@tid'},
@@ -20,18 +20,24 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
     var divisionalRound = false;
     var conferenceChampionship = false;
     var superBowl = false;
-    $scope.round1Done = false;
-    $scope.round2Done = false;
-    $scope.gameOver = false;
-    $scope.gameTimeButton = "Game Time";
-    $scope.team1Won = false;
-    $scope.team2Won = false;
     var numOfDivisionalRoundGames = 0;
     var numOfConferenceChampionshipGames = 0;
     var arrayDivisionalRoundGames = [];
     var arrayConferenceChampionshipGames = [];
     var indexRound1 = -1;
     var indexRound2 = -1;
+    $scope.round1Done = false;
+    $scope.round2Done = false;
+    $scope.gameOver = false;
+    $scope.gameTimeButton = "Game Time";
+    $scope.team1Won = false;
+    $scope.team2Won = false;
+    $scope.thisTeam = {
+        tid: ""
+    };
+    $scope.thatTeam = {
+        tid: ""
+    };
 
     ob.fetchAllTeams = function(){       
         ob.teams = Team.query();   
@@ -62,6 +68,8 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
     };
 
     ob.play = function(id1, id2, round, buttonId) {
+        console.log("id1" + id1);
+        console.log("id2" + id2);
         $scope.team1Won = false;
         $scope.team2Won = false;
         $scope.play = true;
@@ -106,6 +114,15 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
             ob.team2.roundPlayed = 3;
         }
     };
+
+    ob.playConferenceChampionship = function(thisTeam, thatTeam) {
+        console.log("inside playConferenceChampionship");
+        console.log(thisTeam);
+        console.log(thatTeam);
+        $scope.thisTeam = thisTeam;
+        $scope.thatTeam = thatTeam;
+        ob.play($scope.thisTeam.tid, $scope.thatTeam.tid, 2, 'round2Game1');
+    }
 
     ob.saveResult = function() {
         if(arrayDivisionalRoundGames.length == 4) {
@@ -216,7 +233,7 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
     };
 
     ob.startOver = function() {
-        //ob = this;
+        //this.ob = this;
         this.round1Counter = 0;
         this.round2Counter = 0;
         ob.teams = [];
@@ -225,20 +242,21 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
         ob.team2 = new Team();
         divisionalRound = false;
         conferenceChampionship = false;
-        $scope.round1Done = false;
-        $scope.round2Done = false;
-        $scope.gameOver = false;
-        $scope.gameTimeButton = "Game Time";
-        $scope.team1Won = false;
-        $scope.team2Won = false;
         this.numOfDivisionalRoundGames = 0;
         this.numOfConferenceChampionshipGames = 0;
         this.arrayDivisionalRoundGames = [];
         this.arrayConferenceChampionshipGames = [];
         this.indexRound1 = -1;
         this.indexRound2 = -1;
+        $scope.round1Done = false;
+        $scope.round2Done = false;
+        $scope.gameOver = false;
+        $scope.gameTimeButton = "Game Time";
+        $scope.team1Won = false;
+        $scope.team2Won = false;
+        //$scope.index = $route.current.params.index;
         //ob.fetchAllTeams();
-        var myId = 1;
+        //var myId = 1;
         /*ob.myTeam = Team.get({ teamId:myId }, function() 
             });
         ob.myTeam.round1Score = 0;

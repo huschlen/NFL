@@ -3,7 +3,7 @@
 	margin-bottom: 5px;
 }
 
-#divPlayButton, #playButton, #gameTimeButton, #startOver {
+#divPlayButton, #playButton, #gameTimeButton, #startOver, #divRound2Game1PlayButton, #divRound2Game2PlayButton {
 	display:inline-block;
 	float: right;
 }
