@@ -32,12 +32,15 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
     $scope.gameTimeButton = "Game Time";
     $scope.team1Won = false;
     $scope.team2Won = false;
-    $scope.thisTeam = {
+    $scope.showField = false;
+    $scope.conferenceChampionshipGame1Team1 = {
         tid: ""
     };
-    $scope.thatTeam = {
+    $scope.conferenceChampionshipGame2Team1 = {
         tid: ""
     };
+    $scope.conferenceChampionshipGame1Done = false;
+    $scope.conferenceChampionshipGame2Done = false;
 
     ob.fetchAllTeams = function(){       
         ob.teams = Team.query();   
@@ -115,13 +118,16 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
         }
     };
 
-    ob.playConferenceChampionship = function(thisTeam, thatTeam) {
-        console.log("inside playConferenceChampionship");
-        console.log(thisTeam);
-        console.log(thatTeam);
-        $scope.thisTeam = thisTeam;
-        $scope.thatTeam = thatTeam;
-        ob.play($scope.thisTeam.tid, $scope.thatTeam.tid, 2, 'round2Game1');
+    ob.conferenceChampionship = function(tid2, round, buttonId) {
+        console.log("$scope.conferenceChampionshipGame1Team1.tid: "+$scope.conferenceChampionshipGame1Team1.tid);
+        if(buttonId == "round2Game1") {
+            $scope.conferenceChampionshipGame1Done = true;
+            ob.play($scope.conferenceChampionshipGame1Team1.tid, tid2, round, buttonId);
+        }
+        else {
+            $scope.conferenceChampionshipGame2Done = true;
+            ob.play($scope.conferenceChampionshipGame2Team1.tid, tid2, round, buttonId);
+        }
     }
 
     ob.saveResult = function() {
@@ -254,7 +260,13 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
         $scope.gameTimeButton = "Game Time";
         $scope.team1Won = false;
         $scope.team2Won = false;
-        //$scope.index = $route.current.params.index;
+        $scope.showField = false;
+        $scope.conferenceChampionshipGame1Team1 = {
+            tid: ""
+        };
+        $scope.conferenceChampionshipGame2Team1 = {
+            tid: ""
+        };
         //ob.fetchAllTeams();
         //var myId = 1;
         /*ob.myTeam = Team.get({ teamId:myId }, function() 

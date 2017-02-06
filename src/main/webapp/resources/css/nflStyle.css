@@ -3,11 +3,16 @@
 	margin-bottom: 5px;
 }
 
-#divPlayButton, #playButton, #gameTimeButton, #startOver, #divRound2Game1PlayButton, #divRound2Game2PlayButton {
-	display:inline-block;
+#gameTimeButton, #startOver {
+	display: inline-block;
 	float: right;
 }
 
-.vs {
+.divPlayButton, .playButton {
+	display:inline-block;
+	float: right;
+ }
+
+ .vs {
     vertical-align: middle
 }
