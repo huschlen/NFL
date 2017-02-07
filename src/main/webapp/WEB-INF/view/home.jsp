@@ -172,7 +172,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="table team-list" ng-repeat="gagaTeam2 in nflCtrl.teams | conferenceChampionshipFilter:game2Team2 | limitTo:1:3">
+				<div class="table team-list" ng-repeat="game2Team2 in nflCtrl.teams | conferenceChampionshipFilter:game2Team2 | limitTo:1:3">
 					<div class="row" class="col-sm-12">
 						<div class="col-sm-10">
 							<img src={{game2Team2.logo}}>&nbsp;
