@@ -119,23 +119,25 @@
 			<h3>Conference Championship</h3>
 			<form name="conferenceChampionshipForm" method="POST">
 			<!--<div ng-show="!conferenceChampionshipGame1Done">-->
-			<div>
-				<div class="table team-list" ng-repeat="game1Team1 in nflCtrl.teams | goFilter:game1Team1 | limitTo:1:0">
-					<div class="row" class="col-sm-10">
-						<img src={{game1Team1.logo}}>&nbsp;
-						<strong>{{game1Team1.division}}</strong>&nbsp;
-						<strong>{{game1Team1.location}}</strong>&nbsp;
-						<strong>{{game1Team1.name}}</strong>&nbsp;
-						<strong>{{game1Team1.round2Score}}</strong>
-						<input
-							type="text"
-							ng-init="conferenceChampionshipGame1Team1.tid=game1Team1.tid"
-							ng-model="conferenceChampionshipGame1Team1.tid"
-							value="{{game1Team1.tid}}"
-							ng-show="showField">
+				<div>
+				<div class="table team-list" ng-repeat="game1Team1 in nflCtrl.teams | conferenceChampionshipFilter:game1Team1 | limitTo:1:0">
+					<div class="row" class="col-sm-12">
+						<div class="col-sm-10">
+							<img src={{game1Team1.logo}}>&nbsp;
+							<strong>{{game1Team1.division}}</strong>&nbsp;
+							<strong>{{game1Team1.location}}</strong>&nbsp;
+							<strong>{{game1Team1.name}}</strong>&nbsp;
+							<strong>{{game1Team1.round2Score}}</strong>
+							<input
+								type="text"
+								ng-init="conferenceChampionshipGame1Team1.tid=game1Team1.tid"
+								ng-model="conferenceChampionshipGame1Team1.tid"
+								value="{{game1Team1.tid}}"
+								ng-show="showField">
+						</div>
 					</div>
 				</div>
-				<div class="table team-list" ng-repeat="game1Team2 in nflCtrl.teams | goFilter:game1Team2 | limitTo:1:1">
+				<div class="table team-list" ng-repeat="game1Team2 in nflCtrl.teams | conferenceChampionshipFilter:game1Team2 | limitTo:1:1">
 					<div class="row" class="col-sm-12">
 						<div class="col-sm-10">
 							<img src={{game1Team2.logo}}>&nbsp;
@@ -145,7 +147,7 @@
 							<strong>{{game1Team2.round2Score}}</strong>
 						</div>					
 						<div class="col-sm-2 divPlayButton">
-							<input type="button" class="btn btn-xs btn-primary playButton" id="round2Game1" ng-click="nflCtrl.conferenceChampionship(game1Team2.tid, 2, 'round2Game1')" value="Play"/>
+							<input type="button" class="btn btn-xs btn-primary playButton" id="round2Game1" ng-click="nflCtrl.round2AndRound3(game1Team2.tid, 2, 'round2Game1')" value="Play"/>
 						</div>
 					</div>
 				</div>
@@ -153,22 +155,24 @@
 
 				<!--<div ng-show="!conferenceChampionshipGame2Done">-->
 				<div>
-				<div class="table team-list" ng-repeat="game2Team1 in nflCtrl.teams | goFilter:game2Team1 | limitTo:1:2">
-					<div class="row" class="col-sm-10" ng-model="game2Team1.tid">
-						<img src={{game2Team1.logo}}>&nbsp;
-						<strong>{{game2Team1.division}}</strong>&nbsp;
-						<strong>{{game2Team1.location}}</strong>&nbsp;
-						<strong>{{game2Team1.name}}</strong>&nbsp;
-						<strong>{{game2Team1.round2Score}}</strong>
-						<input
-							type="text"
-							ng-init="conferenceChampionshipGame2Team1.tid=game2Team1.tid"
-							ng-model="conferenceChampionshipGame2Team1.tid"
-							value="{{game2Team1.tid}}"
-							ng-show="showField">
+				<div class="table team-list" ng-repeat="game2Team1 in nflCtrl.teams | conferenceChampionshipFilter:game2Team1 | limitTo:1:2">
+					<div class="row" class="col-sm-12" ng-model="game2Team1.tid">
+						<div class="col-sm-10">
+							<img src={{game2Team1.logo}}>&nbsp;
+							<strong>{{game2Team1.division}}</strong>&nbsp;
+							<strong>{{game2Team1.location}}</strong>&nbsp;
+							<strong>{{game2Team1.name}}</strong>&nbsp;
+							<strong>{{game2Team1.round2Score}}</strong>
+							<input
+								type="text"
+								ng-init="conferenceChampionshipGame2Team1.tid=game2Team1.tid"
+								ng-model="conferenceChampionshipGame2Team1.tid"
+								value="{{game2Team1.tid}}"
+								ng-show="showField">
+						</div>
 					</div>
 				</div>
-				<div class="table team-list" ng-repeat="game2Team2 in nflCtrl.teams | goFilter:game2Team2 | limitTo:1:3">
+				<div class="table team-list" ng-repeat="gagaTeam2 in nflCtrl.teams | conferenceChampionshipFilter:game2Team2 | limitTo:1:3">
 					<div class="row" class="col-sm-12">
 						<div class="col-sm-10">
 							<img src={{game2Team2.logo}}>&nbsp;
@@ -178,7 +182,7 @@
 							<strong>{{game2Team2.round2Score}}</strong>
 						</div>
 						<div class="col-sm-2 divPlayButton">
-							<input type="button" class="btn btn-xs btn-primary playButton" id="round2Game2" ng-click="nflCtrl.conferenceChampionship(game2Team2.tid, 2, 'round2Game2')" value="Play"/>
+							<input type="button" class="btn btn-xs btn-primary playButton" id="round2Game2" ng-click="nflCtrl.round2AndRound3(game2Team2.tid, 2, 'round2Game2')" value="Play"/>
 						</div>
 					</div>
 				</div>
@@ -193,28 +197,39 @@
 		<div class="col-sm-12">
 			<h3>Super Bowl</h3>
 			<form name="superBowlForm" method="POST">
-				<div class="table-bordered team-list" ng-repeat="team in nflCtrl.teams">
-					<div class="row" class="col-sm-12" ng-if="$even">
-						<div class="col-sm-5">
-							<img src={{nflCtrl.teams[$index].logo}}>&nbsp;
-							<strong>{{nflCtrl.teams[$index].location}}</strong>&nbsp;
-							<strong>{{nflCtrl.teams[$index].name}}</strong>&nbsp;
-							<strong>{{nflCtrl.teams[$index].round3Score}}</strong>
-						</div>
-						<div class="col-sm-2" class="vs">
-							<strong>VS</strong>
-						</div>
-						<div class="col-sm-5" ng-if="nflCtrl.teams.length > ($index + 1)">
-							<img src={{nflCtrl.teams[$index+1].logo}}>&nbsp;
-							<strong>{{nflCtrl.teams[$index+1].location}}</strong>&nbsp;
-							<strong>{{nflCtrl.teams[$index+1].name}}</strong>&nbsp;
-							<strong>{{nflCtrl.teams[$index+1].round3Score}}</strong>
-						</div>
-						<div class="col-sm-2" id="divPlayButton">
-							<input type="button" class="btn btn-xs btn-primary" id="playButton" ng-click="nflCtrl.play(nflCtrl.teams[$index].tid, nflCtrl.teams[$index+1].tid, 3)" value="Play"/>
+				<div>
+				<div class="table team-list" ng-repeat="superBowlTeam1 in nflCtrl.teams | superBowlFilter:superBowlTeam1 | limitTo:1:0">
+					<div class="row" class="col-sm-12">
+						<div class="col-sm-10">
+							<img src={{superBowlTeam1.logo}}>&nbsp;
+							<strong>{{superBowlTeam1.division}}</strong>&nbsp;
+							<strong>{{superBowlTeam1.location}}</strong>&nbsp;
+							<strong>{{superBowlTeam1.name}}</strong>&nbsp;
+							<strong>{{superBowlTeam1.round2Score}}</strong>
+							<input
+								type="text"
+								ng-init="gagaTeam1.tid=superBowlTeam1.tid"
+								ng-model="gagaTeam1.tid"
+								value="{{superBowlTeam1.tid}}"
+								ng-show="showField">
 						</div>
 					</div>
-				</div><!--end of <div class="table-bordered", ng-repeat="team in nflCtrl.teams">-->
+				</div>
+				<div class="table team-list" ng-repeat="superBowlTeam2 in nflCtrl.teams | superBowlFilter:superBowlTeam2 | limitTo:1:1">
+					<div class="row" class="col-sm-12">
+						<div class="col-sm-10">
+							<img src={{superBowlTeam2.logo}}>&nbsp;
+							<strong>{{superBowlTeam2.division}}</strong>&nbsp;
+							<strong>{{superBowlTeam2.location}}</strong>&nbsp;
+							<strong>{{superBowlTeam2.name}}</strong>&nbsp;
+							<strong>{{superBowlTeam2.round2Score}}</strong>
+						</div>					
+						<div class="col-sm-2 divPlayButton">
+							<input type="button" class="btn btn-xs btn-primary playButton" id="superBowlGame" ng-click="nflCtrl.round2AndRound3(superBowlTeam2.tid, 3, 'superBowlGame')" value="Play"/>
+						</div>
+					</div>
+				</div>
+				</div>
 			</form>
 		</div><!--end of <div class="col-sm-12">-->
 	</div>
@@ -235,6 +250,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-resource.js"></script>
 <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>-->
 <script src="${pageContext.request.contextPath}/app-resources/js/nflApp.js"></script>
-<script src="${pageContext.request.contextPath}/app-resources/js/filters/goFilter.js"></script>
+<script src="${pageContext.request.contextPath}/app-resources/js/filters/conferenceChampionshipFilter.js"></script>
+<script src="${pageContext.request.contextPath}/app-resources/js/filters/superBowlFilter.js"></script>
 <!--<script src="${pageContext.request.contextPath}/app-resources/js/filters/indexFilter.js"></script>-->
 </html>
