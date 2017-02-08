@@ -169,6 +169,7 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
                 console.log(team2);
                 ob.fetchAllTeams();
             });
+            ob.fetchAllTeams();
         }
         if (conferenceChampionship == true) {
             ob.team1.round2Score = Math.floor(Math.random() * ((ob.team1.average-0)+1) + 0);
@@ -202,6 +203,7 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
                 console.log(team2);
                 ob.fetchAllTeams();
             });
+            ob.fetchAllTeams();
         }
         if (superBowl == true) {
             ob.team1.round3Score = Math.floor(Math.random() * ((ob.team1.average-0)+1) + 0);
@@ -235,6 +237,7 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
                 console.log(team2);
                 ob.fetchAllTeams();
             });
+            ob.fetchAllTeams();
         }
     };
 
@@ -273,18 +276,18 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
             tid: ""
         };
         ob.fetchAllTeams();
-        var myId = 1;
-        ob.myId = Team.get({ teamId:myId }, function() {
-        });
-        ob.myTeam.round1Score = 0;
+        ob.updateAll();
+        //console.log("myTeam: "+ob.myTeam.name);
+        /*ob.myTeam.round1Score = 0;
         ob.myTeam.round2Score = 0;
         ob.myTeam.round3Score = 0;
         ob.myTeam.go = 1;
         ob.myTeam.roundPlayed = 0;
-        ob.myTeam.$updateTeam(function(myTeam) {    
+        ob.myTeam.$updateTeam(function(myTeam) {
+            console.log(myTeam);
             ob.fetchAllTeams();
-        });
-
+        });*/
+        
     };
 
 }]);
