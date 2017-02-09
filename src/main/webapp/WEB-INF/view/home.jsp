@@ -33,9 +33,9 @@
 							<img src="${pageContext.request.contextPath}/app-resources/js/images/star.jpg" ng-show="team1Won">&nbsp;
 							<strong>{{nflCtrl.team1.location}}</strong>&nbsp;
 							<strong>{{nflCtrl.team1.name}}</strong>&nbsp;
-							<span><strong>{{nflCtrl.team1.round1Score}}</strong></span>
-							<span ng-show=""><strong>{{nflCtrl.team1.round2Score}}</strong>
-							<span ng-show=""><strong>{{nflCtrl.team1.round3Score}}</strong>
+							<span ng-show="divisionalRound"><strong>{{nflCtrl.team1.round1Score}}</strong></span>
+							<span ng-show="conferenceChampionship"><strong>{{nflCtrl.team1.round2Score}}</strong>
+							<span ng-show="superBowl"><strong>{{nflCtrl.team1.round3Score}}</strong>
 						</div>
 					</div>
 					<div class="col-sm-2 vs">
@@ -47,9 +47,9 @@
 							<img src="${pageContext.request.contextPath}/app-resources/js/images/star.jpg" ng-show="team2Won">&nbsp;
 							<strong>{{nflCtrl.team2.location}}</strong>&nbsp;
 							<strong>{{nflCtrl.team2.name}}</strong>&nbsp;
-							<strong>{{nflCtrl.team2.round1Score}}</strong>
-							<span ng-show=""><strong>{{nflCtrl.team2.round2Score}}</strong></span>
-							<span ng-show=""><strong>{{nflCtrl.team2.round3Score}}</strong></span>
+							<strong ng-show="divisionalRound">{{nflCtrl.team2.round1Score}}</strong>
+							<span ng-show="conferenceChampionship"><strong>{{nflCtrl.team2.round2Score}}</strong></span>
+							<span ng-show="superBowl"><strong>{{nflCtrl.team2.round3Score}}</strong></span>
 						</div>
 					</div>		
 				</div>
