@@ -50,7 +50,6 @@ Temporary Items
 
 #Java class files
 /bin/
-*.class
 
 # Files created by eclipse
 .classpath
