@@ -49,4 +49,10 @@ Temporary Items
 /build/
 
 #Java class files
-.class
+/bin/
+*.class
+
+# Files created by eclipse
+.classpath
+.project
+.settings
