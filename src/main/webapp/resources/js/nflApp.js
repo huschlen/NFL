@@ -16,14 +16,6 @@ app.factory('ResetTeams', ['$resource', function ($resource) {
     );
 }]);
 
-/*app.factory('ResetTeam', function($resource) {
-    var url, defaultParams, actions;
-    url = 'http://localhost:8080/nfl-1/teams/:teamId';
-    defaultParams = {teamId: '@tid'};
-    actions = {
-        startOver: { method: 'PUT', isArray: true }
-};*/
-
 app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'ResetTeams', function($scope, $window, $resource, Team, ResetTeams) {
 
     var ob = this;
@@ -120,8 +112,6 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
         });
         ob.team2 = Team.get({ teamId:id2 }, function() {
         });
-        ob.myTeam = Team.get({ teamId:1 }, function() {
-        });
         if(round == 1) {
             divisionalRound = true;
             indexRound1 = arrayDivisionalRoundGames.indexOf(buttonId);
@@ -186,10 +176,6 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
             });
             ob.team2.$updateTeam(function(team2) {
                 console.log(team2);
-                ob.fetchAllTeams();
-            });
-            ob.myTeam.$updateTeam(function(myTeam) {
-                console.log(myTeam.name);
                 ob.fetchAllTeams();
             });
             ob.fetchAllTeams();
@@ -265,25 +251,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
     };
 
     ob.startOver = function() {
-        console.log("startOver");
-        /*return $resource('http://localhost:8080/nfl-1/teams', {},
-            {
-                resetAll: {method: 'PUT', isArray: true}
-            }
-        );*/
-        /*ob.resetTeams.$startOver([{tid:1, round1Score:0, round2Score:0, round3Score: 0, go:1, roundPlayed:0}]) {
-            console.log(resetTeams);
-            ob.fetchAllTeams();
-        };*/
-
-        ob.resetTeams.$startOver(function() {
-               // console.log(resetTeams);
-                ob.fetchAllTeams();
-        });
-
-        //Stuff.$saveAll([{id: 1, foo: 'bar'}, {id: 2, foo: 'boo'}]);
-    };
-        /*round1Counter = 0;
+    	round1Counter = 0;
         round2Counter = 0;
         ob.teams = [];
         ob.myTeam = new Team();
@@ -315,53 +283,11 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
         $scope.conferenceChampionshipGame2Done = false;
         $scope.gagaTeam1 = {
             tid: ""
-        };*/
-        /*ob.myTeam = Team.get({ teamId:1 }, function() {
+        };
+        console.log("startOver");
+        ob.resetTeams.$startOver(function() {
+                ob.fetchAllTeams();
         });
-        ob.fetchAllTeams();
-        ob.updateAll();*/
-        //console.log("myTeam: "+ob.myTeam.name);
-        /*ob.myTeam.round1Score = 0;
-        ob.myTeam.round2Score = 0;
-        ob.myTeam.round3Score = 0;
-        ob.myTeam.go = 1;
-        ob.myTeam.roundPlayed = 0;
-        ob.myTeam.$updateTeam(function(myTeam) {
-            console.log(myTeam);
-            ob.fetchAllTeams();
-        });*/
-
-
-    ob.updateAll = function() {
-        console.log("inside updateAll");
-        ob.myTeam.roundPlayed = 1;
-        ob.team2.roundPlayed = 1;
-        ob.myTeam.round1Score = Math.floor(Math.random() * ((ob.myTeam.average-0)+1) + 0);
-        ob.team2.round1Score = Math.floor(Math.random() * ((ob.team2.average-0)+1) + 0);
-        if(ob.myTeam.round1Score < ob.team2.round1Score) {
-            ob.myTeam.go = 0;
-            $scope.team1Won = false;
-            $scope.team2Won = true;          
-            $scope.play = false;
-            //$scope.gameOver = true;
-            $scope.tieBreakerGame = false;
-            $scope.gameTimeButton = "Game Time";
-            //ob.fetchAllTeams();
-        }
-        else if(ob.myTeam.round1Score > ob.team2.round1Score) {
-            ob.team2.go = 0;
-            $scope.team1Won = true;
-            $scope.team2Won = false;
-        }
-        else {
-            $scope.gameTimeButton = "Tie Breaker";
-            $scope.tieBreakerGame = true;
-        }
-        ob.myTeam.$updateTeam(function(myTeam) {
-            console.log(myTeam.name);
-            ob.fetchAllTeams();
-        });
-        ob.fetchAllTeams();
     };
 
 }]);
