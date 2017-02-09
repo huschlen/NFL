@@ -113,24 +113,24 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
         ob.team2 = Team.get({ teamId:id2 }, function() {
         });
         if(round == 1) {
-            divisionalRound = true;
+            $scope.divisionalRound = true;
             indexRound1 = arrayDivisionalRoundGames.indexOf(buttonId);
             if(indexRound1 < 0) {
                 arrayDivisionalRoundGames.push(buttonId);
             }
         }
         if(round == 2) {
-            conferenceChampionship = true;
-            divisionalRound = false;
+            $scope.conferenceChampionship = true;
+            $scope.divisionalRound = false;
             indexRound2 = arrayConferenceChampionshipGames.indexOf(buttonId);
             if(indexRound2 < 0) {
                 arrayConferenceChampionshipGames.push(buttonId);
             }
         }
         if(round == 3) {
-            superBowl = true;
-            divisionalRound = false;
-            conferenceChampionship = false;
+            $scope.superBowl = true;
+            $scope.divisionalRound = false;
+            $scope.conferenceChampionship = false;
         }  
         console.log("buttonId " + buttonId);
 
