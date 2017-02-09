@@ -63,6 +63,11 @@ public class TeamController {
 		teamService.updateTeam(team);
 		return new ResponseEntity<Team>(team, HttpStatus.OK);
 	}
+	@RequestMapping(value="/teams", method = RequestMethod.PUT)
+	public ResponseEntity<List<Team>> startOver() {
+		teamService.resetTeams();
+		return new ResponseEntity<List<Team>>(HttpStatus.OK);
+	}
 	@RequestMapping(value="/teams/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteTeam(@PathVariable("id") Integer id) {
 		teamService.deleteTeam(id);
