@@ -52,6 +52,11 @@ public class TeamDAO implements ITeamDAO {
 		hibernateTemplate.update(t);
 	}
 	@Override
+	public void resetTeams() {
+		String hql = "UPDATE Team as t SET t.round1Score=0, t.round2Score=0, t.round3Score=0, t.go=1, t.roundPlayed=0";
+		hibernateTemplate.bulkUpdate(hql);
+	}
+	@Override
 	public void deleteTeam(int tid) {
 		hibernateTemplate.delete(getTeamById(tid));
 	}
