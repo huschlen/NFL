@@ -20,5 +20,6 @@ public interface ITeamService {
     Team getTeamById(int tid);
     boolean addTeam(Team team);
     void updateTeam(Team team);
+    void resetTeams();
     void deleteTeam(int tid);
 }
