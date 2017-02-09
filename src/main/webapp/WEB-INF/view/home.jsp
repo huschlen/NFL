@@ -64,6 +64,14 @@
 
 				<button
 					type="button"
+					id="testButton"
+					class="btn btn-primary"
+					ng-click="nflCtrl.startOver()"
+					ng-show="play && !gameOver && !round1Done">Test
+				</button>
+
+				<button
+					type="button"
 					class="btn btn-primary"
 					ng-show="round1Done && !round2Done">Go to Conference Championship!	
 				</button>

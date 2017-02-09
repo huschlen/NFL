@@ -8,7 +8,23 @@ app.factory('Team', ['$resource', function ($resource) {
     );
 }]);
 
-app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $window, Team) {
+app.factory('ResetTeams', ['$resource', function ($resource) {
+    return $resource('http://localhost:8080/nfl-1/teams', {},
+        {
+            startOver: {method: 'PUT'}
+        }
+    );
+}]);
+
+/*app.factory('ResetTeam', function($resource) {
+    var url, defaultParams, actions;
+    url = 'http://localhost:8080/nfl-1/teams/:teamId';
+    defaultParams = {teamId: '@tid'};
+    actions = {
+        startOver: { method: 'PUT', isArray: true }
+};*/
+
+app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'ResetTeams', function($scope, $window, $resource, Team, ResetTeams) {
 
     var ob = this;
     var round1Counter = 0;
@@ -17,6 +33,7 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
     ob.myTeam = new Team();
     ob.team1 = new Team();
     ob.team2 = new Team();
+    ob.resetTeams = new ResetTeams();
     var divisionalRound = false;
     var conferenceChampionship = false;
     var superBowl = false;
@@ -45,7 +62,7 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
         tid: ""
     };
 
-    ob.fetchAllTeams = function(){       
+    ob.fetchAllTeams = function() {       
         ob.teams = Team.query();   
     };
 
@@ -102,6 +119,8 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
         ob.team1 = Team.get({ teamId:id1 }, function() {
         });
         ob.team2 = Team.get({ teamId:id2 }, function() {
+        });
+        ob.myTeam = Team.get({ teamId:1 }, function() {
         });
         if(round == 1) {
             divisionalRound = true;
@@ -167,6 +186,10 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
             });
             ob.team2.$updateTeam(function(team2) {
                 console.log(team2);
+                ob.fetchAllTeams();
+            });
+            ob.myTeam.$updateTeam(function(myTeam) {
+                console.log(myTeam.name);
                 ob.fetchAllTeams();
             });
             ob.fetchAllTeams();
@@ -242,7 +265,25 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
     };
 
     ob.startOver = function() {
-        round1Counter = 0;
+        console.log("startOver");
+        /*return $resource('http://localhost:8080/nfl-1/teams', {},
+            {
+                resetAll: {method: 'PUT', isArray: true}
+            }
+        );*/
+        /*ob.resetTeams.$startOver([{tid:1, round1Score:0, round2Score:0, round3Score: 0, go:1, roundPlayed:0}]) {
+            console.log(resetTeams);
+            ob.fetchAllTeams();
+        };*/
+
+        ob.resetTeams.$startOver(function() {
+               // console.log(resetTeams);
+                ob.fetchAllTeams();
+        });
+
+        //Stuff.$saveAll([{id: 1, foo: 'bar'}, {id: 2, foo: 'boo'}]);
+    };
+        /*round1Counter = 0;
         round2Counter = 0;
         ob.teams = [];
         ob.myTeam = new Team();
@@ -274,9 +315,11 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
         $scope.conferenceChampionshipGame2Done = false;
         $scope.gagaTeam1 = {
             tid: ""
-        };
+        };*/
+        /*ob.myTeam = Team.get({ teamId:1 }, function() {
+        });
         ob.fetchAllTeams();
-        ob.updateAll();
+        ob.updateAll();*/
         //console.log("myTeam: "+ob.myTeam.name);
         /*ob.myTeam.round1Score = 0;
         ob.myTeam.round2Score = 0;
@@ -287,7 +330,38 @@ app.controller('NflController', ['$scope', '$window', 'Team', function($scope, $
             console.log(myTeam);
             ob.fetchAllTeams();
         });*/
-        
+
+
+    ob.updateAll = function() {
+        console.log("inside updateAll");
+        ob.myTeam.roundPlayed = 1;
+        ob.team2.roundPlayed = 1;
+        ob.myTeam.round1Score = Math.floor(Math.random() * ((ob.myTeam.average-0)+1) + 0);
+        ob.team2.round1Score = Math.floor(Math.random() * ((ob.team2.average-0)+1) + 0);
+        if(ob.myTeam.round1Score < ob.team2.round1Score) {
+            ob.myTeam.go = 0;
+            $scope.team1Won = false;
+            $scope.team2Won = true;          
+            $scope.play = false;
+            //$scope.gameOver = true;
+            $scope.tieBreakerGame = false;
+            $scope.gameTimeButton = "Game Time";
+            //ob.fetchAllTeams();
+        }
+        else if(ob.myTeam.round1Score > ob.team2.round1Score) {
+            ob.team2.go = 0;
+            $scope.team1Won = true;
+            $scope.team2Won = false;
+        }
+        else {
+            $scope.gameTimeButton = "Tie Breaker";
+            $scope.tieBreakerGame = true;
+        }
+        ob.myTeam.$updateTeam(function(myTeam) {
+            console.log(myTeam.name);
+            ob.fetchAllTeams();
+        });
+        ob.fetchAllTeams();
     };
 
 }]);
