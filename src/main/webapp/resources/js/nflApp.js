@@ -26,9 +26,10 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
     ob.team1 = new Team();
     ob.team2 = new Team();
     ob.resetTeams = new ResetTeams();
-    var divisionalRound = false;
-    var conferenceChampionship = false;
-    var superBowl = false;
+    var currentRound = 0;
+    $scope.round1 = false;
+    $scope.round2 = false;
+    $scope.round3 = false;
     var numOfDivisionalRoundGames = 0;
     var numOfConferenceChampionshipGames = 0;
     var arrayDivisionalRoundGames = [];
@@ -113,24 +114,27 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
         ob.team2 = Team.get({ teamId:id2 }, function() {
         });
         if(round == 1) {
-            $scope.divisionalRound = true;
+            $scope.round1 = true;
+            currentRound = 1;
             indexRound1 = arrayDivisionalRoundGames.indexOf(buttonId);
             if(indexRound1 < 0) {
                 arrayDivisionalRoundGames.push(buttonId);
             }
         }
         if(round == 2) {
-            $scope.conferenceChampionship = true;
-            $scope.divisionalRound = false;
+            $scope.round2 = true;
+            $scope.round1 = false;
+            currentRound = 2;
             indexRound2 = arrayConferenceChampionshipGames.indexOf(buttonId);
             if(indexRound2 < 0) {
                 arrayConferenceChampionshipGames.push(buttonId);
             }
         }
         if(round == 3) {
-            $scope.superBowl = true;
-            $scope.divisionalRound = false;
-            $scope.conferenceChampionship = false;
+            $scope.round3 = true;
+            $scope.round1 = false;
+            $scope.round2 = false;
+            currentRound = 3;
         }  
         console.log("buttonId " + buttonId);
 
@@ -145,7 +149,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
         if(arrayConferenceChampionshipGames.length == 2) {
             $scope.round2Done = true;
         }
-        if (divisionalRound == true) {
+        if (currentRound == 1) {
             console.log("inside if divisionRound==true");
             ob.team1.roundPlayed = 1;
             ob.team2.roundPlayed = 1;
@@ -180,7 +184,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
             });
             ob.fetchAllTeams();
         }
-        if (conferenceChampionship == true) {
+        if (currentRound == 2) {
             ob.team1.round2Score = Math.floor(Math.random() * ((ob.team1.average-0)+1) + 0);
             ob.team2.round2Score = Math.floor(Math.random() * ((ob.team2.average-0)+1) + 0);
             ob.team1.roundPlayed = 2;
@@ -214,7 +218,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
             });
             ob.fetchAllTeams();
         }
-        if (superBowl == true) {
+        if (currentRound == 3) {
             ob.team1.round3Score = Math.floor(Math.random() * ((ob.team1.average-0)+1) + 0);
             ob.team2.round3Score = Math.floor(Math.random() * ((ob.team2.average-0)+1) + 0);
             ob.team1.roundPlayed = 3;
@@ -257,9 +261,11 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
         ob.myTeam = new Team();
         ob.team1 = new Team();
         ob.team2 = new Team();
-        divisionalRound = false;
-        conferenceChampionship = false;
-        superBowl = false;
+        ob.resetTeams = new ResetTeams();
+        currentRound = 0;
+        $scope.round1 = false;
+        $scope.round2 = false;
+        $scope.round3 = false;
         numOfDivisionalRoundGames = 0;
         numOfConferenceChampionshipGames = 0;
         arrayDivisionalRoundGames = [];
