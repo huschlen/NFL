@@ -29,7 +29,7 @@
 				<div class="row">
 					<div class="col-sm-5">
 						<div class="input-group">
-							<span><img src={{nflCtrl.team1.logo}}></span>&nbsp;
+							<span><img ng-src={{nflCtrl.team1.logo}}></span>&nbsp;
 							<img src="${pageContext.request.contextPath}/app-resources/js/images/star.jpg" ng-show="team1Won">&nbsp;
 							<strong>{{nflCtrl.team1.location}}</strong>&nbsp;
 							<strong>{{nflCtrl.team1.name}}</strong>&nbsp;
@@ -39,11 +39,11 @@
 						</div>
 					</div>
 					<div class="col-sm-2 vs">
-						<span><strong>VS</strong></span>
+						<span ng-show="gameTime"><strong>VS</strong></span>
 					</div>
 					<div class="col-sm-5">
 						<div class="input-group">
-							<span><img src={{nflCtrl.team2.logo}}></span>&nbsp;
+							<span><img ng-src={{nflCtrl.team2.logo}}></span>&nbsp;
 							<img src="${pageContext.request.contextPath}/app-resources/js/images/star.jpg" ng-show="team2Won">&nbsp;
 							<strong>{{nflCtrl.team2.location}}</strong>&nbsp;
 							<strong>{{nflCtrl.team2.name}}</strong>&nbsp;
@@ -59,7 +59,7 @@
 					id="gameTimeButton"
 					class="btn btn-primary"
 					ng-click="nflCtrl.saveResult()"
-					ng-show="play && !gameOver">{{gameTimeButton}}
+					ng-show="gameTime && !gameOver">{{gameTimeButton}}
 				</button>
 
 				<button
@@ -89,7 +89,7 @@
 					<span ng-if="team.division=='NFC'" ng-show="$even">NFC</span>
 					<div class="row" class="col-sm-12" ng-if="$even">
 						<div class="col-sm-5">
-							<img src={{nflCtrl.teams[$index].logo}}>&nbsp;
+							<img ng-src={{nflCtrl.teams[$index].logo}}>&nbsp;
 							<strong>{{nflCtrl.teams[$index].location}}</strong>&nbsp;
 							<strong>{{nflCtrl.teams[$index].name}}</strong>&nbsp;
 							<strong>{{nflCtrl.teams[$index].round1Score}}</strong>
@@ -98,13 +98,19 @@
 							<strong>VS</strong>
 						</div>
 						<div class="col-sm-5" ng-if="nflCtrl.teams.length > ($index + 1)">
-							<img src={{nflCtrl.teams[$index+1].logo}}>&nbsp;
+							<img ng-src={{nflCtrl.teams[$index+1].logo}}>&nbsp;
 							<strong>{{nflCtrl.teams[$index+1].location}}</strong>&nbsp;
 							<strong>{{nflCtrl.teams[$index+1].name}}</strong>&nbsp;
 							<strong>{{nflCtrl.teams[$index+1].round1Score}}</strong>
 						</div>
 						<div class="col-sm-1 divPlayButton">
-							<input type="button" class="btn btn-xs btn-primary playButton" id="{{'round1'+$index}}" ng-click="nflCtrl.play(nflCtrl.teams[$index].tid, nflCtrl.teams[$index+1].tid, 1, 'round1'+$index)" value="Play"/>
+							<input
+								type="button"
+								class="btn btn-xs btn-primary playButton"
+								id="{{'round1'+$index}}"
+								ng-show="!round1Done"
+								ng-click="nflCtrl.play(nflCtrl.teams[$index].tid, nflCtrl.teams[$index+1].tid, 1, 'round1'+$index)"
+								value="Play"/>
 						</div>
 					</div>
 					
@@ -123,7 +129,7 @@
 					<div class="table team-list" ng-repeat="game1Team1 in nflCtrl.teams | conferenceChampionshipFilter:game1Team1 | limitTo:1:0">
 						<div class="row" class="col-sm-12">
 							<div class="col-sm-10">
-								<img src={{game1Team1.logo}}>&nbsp;
+								<img ng-src={{game1Team1.logo}}>&nbsp;
 								<strong>{{game1Team1.division}}</strong>&nbsp;
 								<strong>{{game1Team1.location}}</strong>&nbsp;
 								<strong>{{game1Team1.name}}</strong>&nbsp;
@@ -140,14 +146,20 @@
 					<div class="table team-list" ng-repeat="game1Team2 in nflCtrl.teams | conferenceChampionshipFilter:game1Team2 | limitTo:1:1">
 						<div class="row" class="col-sm-12">
 							<div class="col-sm-10">
-								<img src={{game1Team2.logo}}>&nbsp;
+								<img ng-src={{game1Team2.logo}}>&nbsp;
 								<strong>{{game1Team2.division}}</strong>&nbsp;
 								<strong>{{game1Team2.location}}</strong>&nbsp;
 								<strong>{{game1Team2.name}}</strong>&nbsp;
 								<strong>{{game1Team2.round2Score}}</strong>
 							</div>					
 							<div class="col-sm-2 divPlayButton">
-								<input type="button" class="btn btn-xs btn-primary playButton" id="round2Game1" ng-click="nflCtrl.round2AndRound3(game1Team2.tid, 2, 'round2Game1')" value="Play"/>
+								<input
+									type="button"
+									class="btn btn-xs btn-primary playButton"
+									id="round2Game1"
+									ng-show="!round2Done"
+									ng-click="nflCtrl.round2AndRound3(game1Team2.tid, 2, 'round2Game1')"
+									value="Play"/>
 							</div>
 						</div>
 					</div>
@@ -158,7 +170,7 @@
 					<div class="table team-list" ng-repeat="game2Team1 in nflCtrl.teams | conferenceChampionshipFilter:game2Team1 | limitTo:1:2">
 						<div class="row" class="col-sm-12" ng-model="game2Team1.tid">
 							<div class="col-sm-10">
-								<img src={{game2Team1.logo}}>&nbsp;
+								<img ng-src={{game2Team1.logo}}>&nbsp;
 								<strong>{{game2Team1.division}}</strong>&nbsp;
 								<strong>{{game2Team1.location}}</strong>&nbsp;
 								<strong>{{game2Team1.name}}</strong>&nbsp;
@@ -175,14 +187,20 @@
 					<div class="table team-list" ng-repeat="game2Team2 in nflCtrl.teams | conferenceChampionshipFilter:game2Team2 | limitTo:1:3">
 						<div class="row" class="col-sm-12">
 							<div class="col-sm-10">
-								<img src={{game2Team2.logo}}>&nbsp;
+								<img ng-src={{game2Team2.logo}}>&nbsp;
 								<strong>{{game2Team2.division}}</strong>&nbsp;
 								<strong>{{game2Team2.location}}</strong>&nbsp;
 								<strong>{{game2Team2.name}}</strong>&nbsp;
 								<strong>{{game2Team2.round2Score}}</strong>
 							</div>
 							<div class="col-sm-2 divPlayButton">
-								<input type="button" class="btn btn-xs btn-primary playButton" id="round2Game2" ng-click="nflCtrl.round2AndRound3(game2Team2.tid, 2, 'round2Game2')" value="Play"/>
+								<input
+									type="button"
+									class="btn btn-xs btn-primary playButton"
+									id="round2Game2"
+									ng-show="!round2Done"
+									ng-click="nflCtrl.round2AndRound3(game2Team2.tid, 2, 'round2Game2')"
+									value="Play"/>
 							</div>
 						</div>
 					</div>
@@ -197,11 +215,11 @@
 		<div class="col-sm-12">
 			<h3>Super Bowl</h3>
 			<form name="superBowlForm" method="POST">
-				<div>
+				<div class="table-bordered">
 				<div class="table team-list" ng-repeat="superBowlTeam1 in nflCtrl.teams | superBowlFilter:superBowlTeam1 | limitTo:1:0">
 					<div class="row" class="col-sm-12">
 						<div class="col-sm-10">
-							<img src={{superBowlTeam1.logo}}>&nbsp;
+							<img ng-src={{superBowlTeam1.logo}}>&nbsp;
 							<strong>{{superBowlTeam1.division}}</strong>&nbsp;
 							<strong>{{superBowlTeam1.location}}</strong>&nbsp;
 							<strong>{{superBowlTeam1.name}}</strong>&nbsp;
@@ -218,14 +236,19 @@
 				<div class="table team-list" ng-repeat="superBowlTeam2 in nflCtrl.teams | superBowlFilter:superBowlTeam2 | limitTo:1:1">
 					<div class="row" class="col-sm-12">
 						<div class="col-sm-10">
-							<img src={{superBowlTeam2.logo}}>&nbsp;
+							<img ng-src={{superBowlTeam2.logo}}>&nbsp;
 							<strong>{{superBowlTeam2.division}}</strong>&nbsp;
 							<strong>{{superBowlTeam2.location}}</strong>&nbsp;
 							<strong>{{superBowlTeam2.name}}</strong>&nbsp;
 							<strong>{{superBowlTeam2.round3Score}}</strong>
 						</div>					
 						<div class="col-sm-2 divPlayButton">
-							<input type="button" class="btn btn-xs btn-primary playButton" id="superBowlGame" ng-click="nflCtrl.round2AndRound3(superBowlTeam2.tid, 3, 'superBowlGame')" value="Play"/>
+							<input
+								type="button"
+								class="btn btn-xs btn-primary playButton"
+								id="superBowlGame"
+								ng-click="nflCtrl.round2AndRound3(superBowlTeam2.tid, 3, 'superBowlGame')"
+								value="Play"/>
 						</div>
 					</div>
 				</div>

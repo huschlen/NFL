@@ -17,7 +17,6 @@ app.factory('ResetTeams', ['$resource', function ($resource) {
 }]);
 
 app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'ResetTeams', function($scope, $window, $resource, Team, ResetTeams) {
-
     var ob = this;
     var round1Counter = 0;
     var round2Counter = 0;
@@ -96,7 +95,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
             }
         }
         if(round == 3) {
-            ob.play(gagaTeam1.tid, tid2, round, buttonId);
+            ob.play($scope.gagaTeam1.tid, tid2, round, buttonId);
         }
     }
 
@@ -105,7 +104,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
         console.log("id2" + id2);
         $scope.team1Won = false;
         $scope.team2Won = false;
-        $scope.play = true;
+        $scope.gameTime = true;
         $scope.gameOver = false;
         $window.scrollTo(0, 0);
         $window.document.getElementById(buttonId).disabled = true;
@@ -137,9 +136,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
             currentRound = 3;
         }  
         console.log("buttonId " + buttonId);
-
-        $window.document.getElementById(buttonId).disabled = true;
-        
+        $window.document.getElementById(buttonId).disabled = true;      
     };
 
     ob.saveResult = function() {
@@ -150,7 +147,6 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
             $scope.round2Done = true;
         }
         if (currentRound == 1) {
-            console.log("inside if divisionRound==true");
             ob.team1.roundPlayed = 1;
             ob.team2.roundPlayed = 1;
             ob.team1.round1Score = Math.floor(Math.random() * ((ob.team1.average-0)+1) + 0);
@@ -159,7 +155,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 ob.team1.go = 0;
                 $scope.team1Won = false;
                 $scope.team2Won = true;          
-                $scope.play = false;
+                $scope.gameTime = false;
                 //$scope.gameOver = true;
                 $scope.tieBreakerGame = false;
                 $scope.gameTimeButton = "Game Time";
@@ -169,6 +165,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 ob.team2.go = 0;
                 $scope.team1Won = true;
                 $scope.team2Won = false;
+                $scope.gameTime = false;
             }
             else {
                 $scope.gameTimeButton = "Tie Breaker";
@@ -193,7 +190,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 ob.team1.go = 0;
                 $scope.team1Won = false;
                 $scope.team2Won = true;
-                $scope.play = false;
+                $scope.gameTime = false;
                 //$scope.gameOver = true;
                 $scope.tieBreakerGame = false;
                 $scope.gameTimeButton = "Game Time";
@@ -203,6 +200,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 ob.team2.go = 0;
                 $scope.team1Won = true;
                 $scope.team2Won = false;
+                $scope.gameTime = false;
             }
             else {
                 $scope.gameTimeButton = "Tie Breaker";
@@ -222,21 +220,22 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
         if (currentRound == 3) {
             ob.team1.round3Score = Math.floor(Math.random() * ((ob.team1.average-0)+1) + 0);
             ob.team2.round3Score = Math.floor(Math.random() * ((ob.team2.average-0)+1) + 0);
-            ob.team1.roundPlayed = 3;
-            ob.team2.roundPlayed = 3;
+            //ob.team1.roundPlayed = 3;
+            //ob.team2.roundPlayed = 3;
             if(ob.team1.round3Score < ob.team2.round3Score) {
                 //ob.team1.go = 0;
                 $scope.team1Won = false;
                 $scope.team2Won = true;
-                $scope.play = false;
+                $scope.gameTime = false;
                 //$scope.gameOver = true;
                 $scope.tieBreakerGame = false;
                 $scope.gameTimeButton = "Game Time";
-                ob.fetchAllTeams();
+                //ob.fetchAllTeams();
             }
             else if(ob.team1.round3Score > ob.team2.round3Score) {
                 $scope.team1Won = true;
                 $scope.team2Won = false;
+                $scope.gameTime = false;
             }
             else {
                 $scope.gameTimeButton = "Tie Breaker";
