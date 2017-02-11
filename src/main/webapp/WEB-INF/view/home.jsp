@@ -204,43 +204,43 @@
 			<h3>Super Bowl</h3>
 			<form name="superBowlForm" method="POST">
 				<div class="table-bordered">
-				<div class="table team-list" ng-repeat="superBowlTeam1 in nflCtrl.teams | superBowlFilter:superBowlTeam1 | limitTo:1:0">
-					<div class="row" class="col-sm-12">
-						<div class="col-sm-10">
-							<img ng-src={{superBowlTeam1.logo}}>&nbsp;
-							<strong>{{superBowlTeam1.division}}</strong>&nbsp;
-							<strong>{{superBowlTeam1.location}}</strong>&nbsp;
-							<strong>{{superBowlTeam1.name}}</strong>&nbsp;
-							<strong>{{superBowlTeam1.round3Score}}</strong>
-							<input
-								type="text"
-								ng-init="gagaTeam1.tid=superBowlTeam1.tid"
-								ng-model="gagaTeam1.tid"
-								value="{{superBowlTeam1.tid}}"
-								ng-show="showField">
+					<div class="table team-list" ng-repeat="superBowlTeam1 in nflCtrl.teams | superBowlFilter:superBowlTeam1 | limitTo:1:0">
+						<div class="row" class="col-sm-12">
+							<div class="col-sm-10">
+								<img ng-src={{superBowlTeam1.logo}}>&nbsp;
+								<strong>{{superBowlTeam1.division}}</strong>&nbsp;
+								<strong>{{superBowlTeam1.location}}</strong>&nbsp;
+								<strong>{{superBowlTeam1.name}}</strong>&nbsp;
+								<strong>{{superBowlTeam1.round3Score}}</strong>
+								<input
+									type="text"
+									ng-init="gagaTeam1.tid=superBowlTeam1.tid"
+									ng-model="gagaTeam1.tid"
+									value="{{superBowlTeam1.tid}}"
+									ng-show="showField">
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="table team-list" ng-repeat="superBowlTeam2 in nflCtrl.teams | superBowlFilter:superBowlTeam2 | limitTo:1:1">
-					<div class="row" class="col-sm-12">
-						<div class="col-sm-10">
-							<img ng-src={{superBowlTeam2.logo}}>&nbsp;
-							<strong>{{superBowlTeam2.division}}</strong>&nbsp;
-							<strong>{{superBowlTeam2.location}}</strong>&nbsp;
-							<strong>{{superBowlTeam2.name}}</strong>&nbsp;
-							<strong>{{superBowlTeam2.round3Score}}</strong>
-						</div>					
-						<div class="col-sm-2 divPlayButton">
-							<input
-								type="button"
-								class="btn btn-xs btn-primary playButton"
-								id="superBowlGame"
-								ng-show="!round3Done"
-								ng-click="nflCtrl.round2AndRound3(superBowlTeam2.tid, 3, 'superBowlGame')"
-								value="Play"/>
+					<div class="table team-list" ng-repeat="superBowlTeam2 in nflCtrl.teams | superBowlFilter:superBowlTeam2 | limitTo:1:1">
+						<div class="row" class="col-sm-12">
+							<div class="col-sm-10">
+								<img ng-src={{superBowlTeam2.logo}}>&nbsp;
+								<strong>{{superBowlTeam2.division}}</strong>&nbsp;
+								<strong>{{superBowlTeam2.location}}</strong>&nbsp;
+								<strong>{{superBowlTeam2.name}}</strong>&nbsp;
+								<strong>{{superBowlTeam2.round3Score}}</strong>
+							</div>					
+							<div class="col-sm-2 divPlayButton">
+								<input
+									type="button"
+									class="btn btn-xs btn-primary playButton"
+									id="superBowlGame"
+									ng-show="!round3Done"
+									ng-click="nflCtrl.round2AndRound3(superBowlTeam2.tid, 3, 'superBowlGame')"
+									value="Play"/>
+							</div>
 						</div>
 					</div>
-				</div>
 				</div>
 			</form>
 		</div><!--end of <div class="col-sm-12">-->
