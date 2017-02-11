@@ -200,6 +200,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 //ob.fetchAllTeams();
             }
             else if(ob.team1.round2Score > ob.team2.round2Score) {
+                ob.team2.go = 0;
                 $scope.team1Won = true;
                 $scope.team2Won = false;
             }
@@ -224,7 +225,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
             ob.team1.roundPlayed = 3;
             ob.team2.roundPlayed = 3;
             if(ob.team1.round3Score < ob.team2.round3Score) {
-                ob.team1.go = 0;
+                //ob.team1.go = 0;
                 $scope.team1Won = false;
                 $scope.team2Won = true;
                 $scope.play = false;

@@ -20,7 +20,7 @@
 		<a href="/nfl-1/logout">Logout</a>
 	</div>
 	-->
-	<div class="container">
+	<div class="container-fluid">
 		<form name="gameTimeForm" method="POST">
 		<div class="table-bordered">
 		<div class="col-sm-12">
@@ -77,10 +77,10 @@
 		</div>
 		</div>
 		</form>
-	</div><!--End of dev class="container"-->
+	</div><!--End of dev class="container-fluid"-->
 
 	<!--Divisional Round-->
-	<div class="container">
+	<div class="container-fluid">
 		<div class="col-sm-12">
 			<h3>Divisional Round</h3>
 			<form name="divisionalRoundForm" method="POST">
@@ -114,7 +114,7 @@
 	</div>
 
 	<!--Conference Championship-->
-	<div class="container">
+	<div class="container-fluid">
 		<div class="col-sm-12">
 			<h3>Conference Championship</h3>
 			<form name="conferenceChampionshipForm" method="POST">
@@ -193,7 +193,7 @@
 	</div>
 
 	<!--Super Bowl-->
-	<div class="container">
+	<div class="container-fluid">
 		<div class="col-sm-12">
 			<h3>Super Bowl</h3>
 			<form name="superBowlForm" method="POST">
@@ -205,7 +205,7 @@
 							<strong>{{superBowlTeam1.division}}</strong>&nbsp;
 							<strong>{{superBowlTeam1.location}}</strong>&nbsp;
 							<strong>{{superBowlTeam1.name}}</strong>&nbsp;
-							<strong>{{superBowlTeam1.round2Score}}</strong>
+							<strong>{{superBowlTeam1.round3Score}}</strong>
 							<input
 								type="text"
 								ng-init="gagaTeam1.tid=superBowlTeam1.tid"
@@ -222,7 +222,7 @@
 							<strong>{{superBowlTeam2.division}}</strong>&nbsp;
 							<strong>{{superBowlTeam2.location}}</strong>&nbsp;
 							<strong>{{superBowlTeam2.name}}</strong>&nbsp;
-							<strong>{{superBowlTeam2.round2Score}}</strong>
+							<strong>{{superBowlTeam2.round3Score}}</strong>
 						</div>					
 						<div class="col-sm-2 divPlayButton">
 							<input type="button" class="btn btn-xs btn-primary playButton" id="superBowlGame" ng-click="nflCtrl.round2AndRound3(superBowlTeam2.tid, 3, 'superBowlGame')" value="Play"/>
@@ -234,16 +234,19 @@
 		</div><!--end of <div class="col-sm-12">-->
 	</div>
 	
-	<div class="container">
-		<form name="startOver" method="POST">
-		<button type="button"
-				class="btn btn-md btn-primary btn-start-over"
-				id="startOver"
-				ng-click="nflCtrl.startOver()">Start Over
-		</button>
-		</form>
-	</div>
-	<div class="footer"></div>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">NFL</a>
+			<form name="startOver" method="POST">
+				<button type="button"
+						class="btn btn-md btn-success navbar-btn btn-start-over"
+						id="startOver"
+						ng-click="nflCtrl.startOver()">Start Over
+				</button>
+			</form>
+		</div>
+	</nav>
+	
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.3.0/ui-bootstrap.min.js"></script>
