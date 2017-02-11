@@ -22,8 +22,7 @@
 	-->
 	<div class="container-fluid">
 		<form name="gameTimeForm" method="POST">
-		<div class="table-bordered">
-		<div class="col-sm-12">
+		<div class="table-bordered col-sm-12">
 			<div class="game-time-form">
 				<h3>Game Time!</h3>
 				<div class="row">
@@ -53,16 +52,14 @@
 						</div>
 					</div>		
 				</div>
-
 				<button
 					type="button"
 					id="gameTimeButton"
 					class="btn btn-primary"
 					ng-click="nflCtrl.saveResult()"
-					ng-show="gameTime && !gameOver">{{gameTimeButton}}
+					ng-show="gameTime">{{gameTimeButton}}
 				</button>
 			</div><!--end of <div class="game-time-form" ng-show="play">-->
-		</div>
 		</div>
 		</form>
 	</div><!--End of dev class="container-fluid"-->

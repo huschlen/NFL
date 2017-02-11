@@ -38,7 +38,6 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
     $scope.round1Done = false;
     $scope.round2Done = false;
     $scope.round3Done = false;
-    $scope.gameOver = false;
     $scope.gameTimeButton = "Game Time";
     $scope.team1Won = false;
     $scope.team2Won = false;
@@ -106,7 +105,6 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
         $scope.team1Won = false;
         $scope.team2Won = false;
         $scope.gameTime = true;
-        $scope.gameOver = false;
         $window.scrollTo(0, 0);
         $window.document.getElementById(buttonId).disabled = true;
         ob.team1 = Team.get({ teamId:id1 }, function() {
@@ -158,7 +156,6 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 $scope.team1Won = false;
                 $scope.team2Won = true;          
                 $scope.gameTime = false;
-                //$scope.gameOver = true;
                 $scope.tieBreakerGame = false;
                 $scope.gameTimeButton = "Game Time";
                 //ob.fetchAllTeams();
@@ -193,7 +190,6 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 $scope.team1Won = false;
                 $scope.team2Won = true;
                 $scope.gameTime = false;
-                //$scope.gameOver = true;
                 $scope.tieBreakerGame = false;
                 $scope.gameTimeButton = "Game Time";
                 //ob.fetchAllTeams();
@@ -229,7 +225,6 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 $scope.team1Won = false;
                 $scope.team2Won = true;
                 $scope.gameTime = false;
-                //$scope.gameOver = true;
                 $scope.tieBreakerGame = false;
                 $scope.gameTimeButton = "Game Time";
                 //ob.fetchAllTeams();
@@ -277,7 +272,6 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
         $scope.round1Done = false;
         $scope.round2Done = false;
         $scope.round3Done = false;
-        $scope.gameOver = false;
         $scope.gameTimeButton = "Game Time";
         $scope.team1Won = false;
         $scope.team2Won = false;

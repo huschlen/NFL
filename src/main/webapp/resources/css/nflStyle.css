@@ -3,6 +3,10 @@
 	margin-bottom: 5px;
 }
 
+.game-time-form {
+	margin-bottom: 10px;
+}
+
 #gameTimeButton, #startOver {
 	display: inline-block;
 	float: right;
