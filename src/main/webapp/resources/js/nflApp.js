@@ -37,6 +37,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
     var indexRound2 = -1;
     $scope.round1Done = false;
     $scope.round2Done = false;
+    $scope.round3Done = false;
     $scope.gameOver = false;
     $scope.gameTimeButton = "Game Time";
     $scope.team1Won = false;
@@ -134,6 +135,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
             $scope.round1 = false;
             $scope.round2 = false;
             currentRound = 3;
+            $scope.round3Done = true;
         }  
         console.log("buttonId " + buttonId);
         $window.document.getElementById(buttonId).disabled = true;      
@@ -274,6 +276,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
         indexRound2 = -1;
         $scope.round1Done = false;
         $scope.round2Done = false;
+        $scope.round3Done = false;
         $scope.gameOver = false;
         $scope.gameTimeButton = "Game Time";
         $scope.team1Won = false;

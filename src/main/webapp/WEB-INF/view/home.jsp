@@ -61,18 +61,6 @@
 					ng-click="nflCtrl.saveResult()"
 					ng-show="gameTime && !gameOver">{{gameTimeButton}}
 				</button>
-
-				<button
-					type="button"
-					class="btn btn-primary"
-					ng-show="round1Done && !round2Done">Go to Conference Championship!	
-				</button>
-
-				<button
-					type="button"
-					class="btn btn-primary"
-					ng-show="round2Done">Go to Super Bowl!
-				</button>
 			</div><!--end of <div class="game-time-form" ng-show="play">-->
 		</div>
 		</div>
@@ -247,6 +235,7 @@
 								type="button"
 								class="btn btn-xs btn-primary playButton"
 								id="superBowlGame"
+								ng-show="!round3Done"
 								ng-click="nflCtrl.round2AndRound3(superBowlTeam2.tid, 3, 'superBowlGame')"
 								value="Play"/>
 						</div>
