@@ -20,21 +20,21 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
     var ob = this;
     var round1Counter = 0;
     var round2Counter = 0;
-    ob.teams = [];
-    ob.myTeam = new Team();
-    ob.team1 = new Team();
-    ob.team2 = new Team();
-    ob.resetTeams = new ResetTeams();
     var currentRound = 0;
-    $scope.round1 = false;
-    $scope.round2 = false;
-    $scope.round3 = false;
     var numOfDivisionalRoundGames = 0;
     var numOfConferenceChampionshipGames = 0;
     var arrayDivisionalRoundGames = [];
     var arrayConferenceChampionshipGames = [];
     var indexRound1 = -1;
     var indexRound2 = -1;
+    ob.teams = [];
+    ob.myTeam = new Team();
+    ob.team1 = new Team();
+    ob.team2 = new Team();
+    ob.resetTeams = new ResetTeams();
+    $scope.round1 = false;
+    $scope.round2 = false;
+    $scope.round3 = false;
     $scope.round1Done = false;
     $scope.round2Done = false;
     $scope.round3Done = false;
@@ -106,7 +106,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
         $scope.team2Won = false;
         $scope.gameTime = true;
         $window.scrollTo(0, 0);
-        $window.document.getElementById(buttonId).disabled = true;
+        //$window.document.getElementById(buttonId).disabled = true;
         $window.localStorage.setItem(buttonId, 'disabled');
         ob.team1 = Team.get({ teamId:id1 }, function() {
         });
@@ -135,8 +135,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
             $scope.round2 = false;
             currentRound = 3;
             $scope.round3Done = true;
-        }  
-        $window.document.getElementById(buttonId).disabled = true;      
+        }     
     };
 
     ob.saveResult = function() {
@@ -166,6 +165,8 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 $scope.team1Won = true;
                 $scope.team2Won = false;
                 $scope.gameTime = false;
+                $scope.tieBreakerGame = false;
+                $scope.gameTimeButton = "Game Time";
             }
             else {
                 $scope.gameTimeButton = "Tie Breaker";
@@ -199,6 +200,8 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 $scope.team1Won = true;
                 $scope.team2Won = false;
                 $scope.gameTime = false;
+                $scope.tieBreakerGame = false;
+                $scope.gameTimeButton = "Game Time";
             }
             else {
                 $scope.gameTimeButton = "Tie Breaker";
@@ -229,6 +232,8 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 $scope.team1Won = true;
                 $scope.team2Won = false;
                 $scope.gameTime = false;
+                $scope.tieBreakerGame = false;
+                $scope.gameTimeButton = "Game Time";
             }
             else {
                 $scope.gameTimeButton = "Tie Breaker";
@@ -248,21 +253,21 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
         $window.localStorage.clear();
     	round1Counter = 0;
         round2Counter = 0;
-        ob.teams = [];
-        ob.myTeam = new Team();
-        ob.team1 = new Team();
-        ob.team2 = new Team();
-        ob.resetTeams = new ResetTeams();
         currentRound = 0;
-        $scope.round1 = false;
-        $scope.round2 = false;
-        $scope.round3 = false;
         numOfDivisionalRoundGames = 0;
         numOfConferenceChampionshipGames = 0;
         arrayDivisionalRoundGames = [];
         arrayConferenceChampionshipGames = [];
         indexRound1 = -1;
         indexRound2 = -1;
+        ob.teams = [];
+        ob.myTeam = new Team();
+        ob.team1 = new Team();
+        ob.team2 = new Team();
+        ob.resetTeams = new ResetTeams();
+        $scope.round1 = false;
+        $scope.round2 = false;
+        $scope.round3 = false;
         $scope.round1Done = false;
         $scope.round2Done = false;
         $scope.round3Done = false;
