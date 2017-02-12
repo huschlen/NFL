@@ -169,8 +169,8 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 $scope.gameTimeButton = "Game Time";
             }
             else {
-                $scope.gameTimeButton = "Tie Breaker";
                 $scope.tieBreakerGame = true;
+                $scope.gameTimeButton = "Tie Breaker";
             }
             ob.team1.$updateTeam(function(team1) {
                 ob.fetchAllTeams();
@@ -204,8 +204,8 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 $scope.gameTimeButton = "Game Time";
             }
             else {
-                $scope.gameTimeButton = "Tie Breaker";
                 $scope.tieBreakerGame = true;
+                $scope.gameTimeButton = "Tie Breaker";
             }
             ob.team1.$updateTeam(function(team1) {
                 ob.fetchAllTeams();
@@ -236,8 +236,8 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 $scope.gameTimeButton = "Game Time";
             }
             else {
-                $scope.gameTimeButton = "Tie Breaker";
                 $scope.tieBreakerGame = true;
+                $scope.gameTimeButton = "Tie Breaker";
             }
             ob.team1.$updateTeam(function(team1) {
                 ob.fetchAllTeams();

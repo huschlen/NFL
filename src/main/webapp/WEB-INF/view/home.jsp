@@ -33,8 +33,8 @@
 							<strong>{{nflCtrl.team1.location}}</strong>&nbsp;
 							<strong>{{nflCtrl.team1.name}}</strong>&nbsp;
 							<span ng-show="round1"><strong>{{nflCtrl.team1.round1Score}}</strong></span>
-							<span ng-show="round2"><strong>{{nflCtrl.team1.round2Score}}</strong>
-							<span ng-show="round3"><strong>{{nflCtrl.team1.round3Score}}</strong>
+							<span ng-show="round2"><strong>{{nflCtrl.team1.round2Score}}</strong></span>
+							<span ng-show="round3"><strong>{{nflCtrl.team1.round3Score}}</strong></span>
 						</div>
 					</div>
 					<div class="col-sm-2 vs">
@@ -46,7 +46,7 @@
 							<img src="${pageContext.request.contextPath}/app-resources/js/images/star.jpg" ng-show="team2Won">&nbsp;
 							<strong>{{nflCtrl.team2.location}}</strong>&nbsp;
 							<strong>{{nflCtrl.team2.name}}</strong>&nbsp;
-							<strong ng-show="round1">{{nflCtrl.team2.round1Score}}</strong>
+							<span ng-show="round1"><strong>{{nflCtrl.team2.round1Score}}</strong></span>
 							<span ng-show="round2"><strong>{{nflCtrl.team2.round2Score}}</strong></span>
 							<span ng-show="round3"><strong>{{nflCtrl.team2.round3Score}}</strong></span>
 						</div>
@@ -105,7 +105,7 @@
 	</div>
 
 	<!--Conference Championship-->
-	<div class="container-fluid">
+	<div class="container-fluid" ng-show="round1Done">
 		<div class="col-sm-12">
 			<h3>Conference Championship</h3>
 			<form name="conferenceChampionshipForm" method="POST">
@@ -190,13 +190,12 @@
 						</div>
 					</div>
 				</div>
-
 			</form>
 		</div><!--end of <div class="col-sm-12">-->
 	</div>
 
 	<!--Super Bowl-->
-	<div class="container-fluid">
+	<div class="container-fluid" ng-show="round2Done">
 		<div class="col-sm-12">
 			<h3>Super Bowl</h3>
 			<form name="superBowlForm" method="POST">
