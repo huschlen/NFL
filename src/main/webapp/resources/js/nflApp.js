@@ -60,30 +60,32 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
 
     ob.fetchAllTeams();
 
+    /*Manipulating HTML in a controller is not a good practice.*/
+    /*angular.element(document).ready(function () {
+        if($window.localStorage.getItem('round10') == 'disabled') {
+            angular.element(document.getElementById('round10')).prop('disabled', true);
+        }
+    });*/
+
     ob.addTeam = function(){
         console.log('Inside addTeam');
         ob.myTeam.$save(function(myTeam) {
         console.log(myTeam);
-        ob.reset(); 
         ob.fetchAllTeams();
         },
         function(err) {
             console.log(err.status);
-            ob.flag='failed';
         });
     }; 
    
     ob.deleteTeam = function(id){
         console.log('Inside delete');
         ob.myTeam = Team.delete({ teamId:id }, function() {
-            ob.reset();
-            ob.flag = 'deleted';
             ob.fetchAllTeams(); 
         });
     };
 
     ob.round2AndRound3 = function(tid2, round, buttonId) {
-        console.log("$scope.conferenceChampionshipGame1Team1.tid: "+$scope.conferenceChampionshipGame1Team1.tid);
         if(round == 2) {
             if(buttonId == "round2Game1") {
                 $scope.conferenceChampionshipGame1Done = true;
@@ -100,13 +102,12 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
     }
 
     ob.play = function(id1, id2, round, buttonId) {
-        console.log("id1" + id1);
-        console.log("id2" + id2);
         $scope.team1Won = false;
         $scope.team2Won = false;
         $scope.gameTime = true;
         $window.scrollTo(0, 0);
         $window.document.getElementById(buttonId).disabled = true;
+        $window.localStorage.setItem(buttonId, 'disabled');
         ob.team1 = Team.get({ teamId:id1 }, function() {
         });
         ob.team2 = Team.get({ teamId:id2 }, function() {
@@ -135,7 +136,6 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
             currentRound = 3;
             $scope.round3Done = true;
         }  
-        console.log("buttonId " + buttonId);
         $window.document.getElementById(buttonId).disabled = true;      
     };
 
@@ -153,14 +153,15 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
             ob.team2.round1Score = Math.floor(Math.random() * ((ob.team2.average-0)+1) + 0);
             if(ob.team1.round1Score < ob.team2.round1Score) {
                 ob.team1.go = 0;
+                ob.team2.go = 1;
                 $scope.team1Won = false;
                 $scope.team2Won = true;          
                 $scope.gameTime = false;
                 $scope.tieBreakerGame = false;
                 $scope.gameTimeButton = "Game Time";
-                //ob.fetchAllTeams();
             }
             else if(ob.team1.round1Score > ob.team2.round1Score) {
+                ob.team1.go = 1;
                 ob.team2.go = 0;
                 $scope.team1Won = true;
                 $scope.team2Won = false;
@@ -171,11 +172,9 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 $scope.tieBreakerGame = true;
             }
             ob.team1.$updateTeam(function(team1) {
-                console.log(team1);
                 ob.fetchAllTeams();
             });
             ob.team2.$updateTeam(function(team2) {
-                console.log(team2);
                 ob.fetchAllTeams();
             });
             ob.fetchAllTeams();
@@ -187,14 +186,15 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
             ob.team2.roundPlayed = 2;
             if(ob.team1.round2Score < ob.team2.round2Score) {
                 ob.team1.go = 0;
+                ob.team2.go = 1;
                 $scope.team1Won = false;
                 $scope.team2Won = true;
                 $scope.gameTime = false;
                 $scope.tieBreakerGame = false;
                 $scope.gameTimeButton = "Game Time";
-                //ob.fetchAllTeams();
             }
             else if(ob.team1.round2Score > ob.team2.round2Score) {
+                ob.team1.go = 1;
                 ob.team2.go = 0;
                 $scope.team1Won = true;
                 $scope.team2Won = false;
@@ -203,14 +203,11 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
             else {
                 $scope.gameTimeButton = "Tie Breaker";
                 $scope.tieBreakerGame = true;
-                //ob.fetchAllTeams();
             }
             ob.team1.$updateTeam(function(team1) {
-                console.log(team1);
                 ob.fetchAllTeams();
             });
             ob.team2.$updateTeam(function(team2) {
-                console.log(team2);
                 ob.fetchAllTeams();
             });
             ob.fetchAllTeams();
@@ -227,7 +224,6 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
                 $scope.gameTime = false;
                 $scope.tieBreakerGame = false;
                 $scope.gameTimeButton = "Game Time";
-                //ob.fetchAllTeams();
             }
             else if(ob.team1.round3Score > ob.team2.round3Score) {
                 $scope.team1Won = true;
@@ -237,14 +233,11 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
             else {
                 $scope.gameTimeButton = "Tie Breaker";
                 $scope.tieBreakerGame = true;
-                //ob.fetchAllTeams();
             }
             ob.team1.$updateTeam(function(team1) {
-                console.log(team1);
                 ob.fetchAllTeams();
             });
             ob.team2.$updateTeam(function(team2) {
-                console.log(team2);
                 ob.fetchAllTeams();
             });
             ob.fetchAllTeams();
@@ -252,6 +245,7 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
     };
 
     ob.startOver = function() {
+        $window.localStorage.clear();
     	round1Counter = 0;
         round2Counter = 0;
         ob.teams = [];
@@ -287,9 +281,8 @@ app.controller('NflController', ['$scope', '$window', '$resource', 'Team', 'Rese
         $scope.gagaTeam1 = {
             tid: ""
         };
-        console.log("startOver");
         ob.resetTeams.$startOver(function() {
-                ob.fetchAllTeams();
+            ob.fetchAllTeams();
         });
     };
 
